@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="shortcut icon" href="images/fav-icon.png"/>
+    <link rel ="stylesheet" href="style.css"/>
+	<!--style----->
+	<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    
+		body{
+			font-family:poppins;
+		}
+	</style>
+</head>
+<body>
+    <header>
+        <h1>
+            Kläd Affär
+         </h1>
+    </header>
+
+<nav> 
+<!--menu-bar----------------------------------------->
+<div class="navigation">
+ <!--logo------------>
+ <a href="#" class="logo"><img src="images/logo.png"></a>
+ <!--menu-icon------------->
+ <div class="toggle"></div>
+ <!--menu----------------->
+ <ul class="menu">
+     <li><a href="#">Startsida</a></li>
+     <li> <div class="dropdown">
+        <a class="shop">Kläder</a>
+        <div class="dropdown-content">
+          <a href="#">T-shirts</a>
+          <a href="#">Byxor</a>
+          <a href="#">Skor</a>
+        </div>
+      </div></li>
+    
+ </ul>
+
+ <!--right-menu----------->
+ <div class="right-menu">
+     <a href="javascript:void(0);" class="search">
+         <i class="fas fa-search"></i>
+     </a>
+     <a href="javascript:void(0);" class="user">
+         <i class="far fa-user"></i>
+     </a>
+     <a href="#">
+         <i class="fas fa-shopping-cart">
+             <span class="num-cart-product">0</span>
+         </i>
+     </a>
+ </div>
+ </div>
+</nav>
+
+
+<div class="row">
+    <div class="column">
+      <div class="card img-thumbnail">
+        <img src="test.jpg">
+        <h3>Märke</h3>
+        <p>info</p>
+        <p>Pris</p>
+        <p><button>Lägg i kundkorg</button></p>
+      </div>
+    </div>
+  
+    <div class="column">
+      <div class="card img-thumbnail">
+        <img src="test.jpg">
+        <h3>Märke</h3>
+        <p>info</p>
+        <p>Pris</p>
+        <p><button>Lägg i kundkorg</button></p>
+      </div>
+    </div>
+    
+    <div class="column">
+      <div class="card img-thumbnail">
+        <img src="test.jpg">
+        <h3>Märke</h3>
+        <p>info</p>
+        <p>Pris</p>
+        <p><button>Lägg i kundkorg</button></p>
+      </div>
+    </div>
+    
+    <div class="column">
+      <div class="card img-thumbnail">
+        <img src="test.jpg">
+        <h3>Märke</h3>
+        <p>info</p>
+        <p>Pris</p>
+        <p><button>Lägg i kundkorg</button></p>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+
+
+<div class="content">
+    <div class="main">
+      <h2>Märket</h2>
+      <br>
+      <h5>info</h5>
+      <div class="fakeimg"><img src = "test.jpg"/></div>
+      <!-- ========================================================================================= recipes header summary -->
+      <div class="recipes_header_summary">
+        <div class="flex-horiz-container">
+             <div class="selector">
+                <p>Välj storlek</p>
+                <select id="select">
+                    <option value="0">XS</option>
+                    <option value="1">S</option>
+                    <option value="2">M</option>
+                    <option value="3">L</option>
+                    <option value="4">XL</option>
+                </select>
+               
+              </div>
+              <p><button>Lägg i kundkorg</button></p>
+       <!-- ========================================================================================= recipes header summary ends -->
+      <!-- ========================================================================================= recipes/cookingsteps -->
+   
+    <!-- ========================================================================================= recipes/cookingsteps ends -->
+    </div>
+    
+ </div>
+
+ <div>
+
+   <!-- #=========================# Content Recipe ENDS HERE#=========================# -->
+
+
+   
+  </div>
+</div>
+
+</div>
+
+ <!--search-bar----------------------------------->
+ <div class="search-bar">
+    
+    <!--search-input------->
+    <div class="search-input">
+    <input type="text" placeholder="Search For Product" name="search" />
+    <!--cancel-btn--->
+    <a href="javascript:void(0);" class="search-cancel">
+        <i class="fas fa-times"></i>
+    </a>
+
+</div>
+</div>
+
+<footer>
+<div class="footer">
+    <div class="contain">
+    <div class="col">
+      <h1>Company</h1>
+      <ul>
+        <a style="text-decoration: none;" href="/about.html"> <li>About</li> </a>
+      </ul>
+    </div>
+    <div class="col">
+      <h1>Resources</h1>
+      <ul>
+        <li>Github</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h1>Support</h1>
+      <ul>
+        <a style="text-decoration: none;" href="mailto: appsultit@gmail.com"> <li>Contact</li> </a>
+      </ul>
+    </div>
+    <a href=""></a>
+    <div class="col social">
+      <h1>Social</h1>
+      <ul>
+        <li > <i class="fab fa-facebook"></i></li> 
+        <li> <i class="fab fa-instagram"></i></li>
+        <li> <i class="fab fa-snapchat"></i></li>
+     
+      </ul>
+    </div>
+  <div class="clearfix"></div>
+  </div>
+  </div>
+  </div>
+ </footer>
+</body>
+<!--using app.js-->
+
+<script src="app.js"></script>
+ <!--using FontAwesome--------------->
+ <script crossorigin="anonymous" src="https://kit.fontawesome.com/c8e4d183c2.js"></script>
+   <!--using JQuery--------------->
+
+</html>
