@@ -10,7 +10,34 @@ $(document).on('click','.search-cancel',function(){
 
 //---------------------------------------------------------------Vue cart
 
-new Vue({
+Vue.component('fetch', {
+
+data: function() {
+return {
+  imgs: [{
+
+    
+
+
+
+  }]
+  }
+}
+
+
+
+
+
+})
+
+
+
+
+
+
+
+
+var shoppingBag = new Vue({
   el: "#app",
   data: {
     products: [

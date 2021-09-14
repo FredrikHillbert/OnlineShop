@@ -205,24 +205,100 @@ nav{
 
 
 .column {
-    float: left;
-    width: 25%;
-    padding: 0 10px;
-    margin-top: 5%;
-  }
-  .card img{
-    height: 400px;
-    width: 100%;
-    
-        height: 100%;
-        object-fit: cover;
-  }
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
+  padding: 4%;
+  border: solid red;
     display: flex;
-    clear: both;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3%;
   }
+
+.shopping-item-card{
+  margin-right: 100px;
+  position: relative;
+  color: white;
+
+  padding: 10rem 0 0;
+  max-width: 50ch;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 500ms ease;
+}
+
+
+.shopping-item-card:hover{
+  transform: scale(1.02);
+}
+
+.shopping-content{
+  padding: 1.5rem;
+  background: linear-gradient(
+    hsl(0 0% 0% / .0),
+    hsl(0 0% 0% / 1)
+    );
+
+   
+}
+
+.shopping-item-title{
+  position: relative;
+  overflow: hidden;
+}
+
+
+.shopping-item-title::after{
+  content: "";
+  left:0;
+  bottom: 0;
+  position: absolute;
+  height: 4px;
+  background: black;
+  width: 100%;
+
+  transition: transform 500ms ease;
+}
+
+
+.shopping-item-add{
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  background-color: lightgreen;
+  padding: 0.5em 1.25em;
+  border-radius: 0.25em;
+}
+
+.shopping-item-add:hover,
+.shopping-item-add:focus {
+  background-color: white;
+}
+
+@media (hover){
+  .shopping-content{
+    transform: translateY(65%);
+    transition: transform 500ms ease;
+  }
+  .shopping-item-title::after{
+    transform: scaleX(0);
+  }
+  .shopping-item-card:hover .shopping-item-title::after{
+    transform:scaleX(1);
+  }
+  .shopping-content > *:not(.shopping-item-title){
+    opacity: 0;
+    transition: opacity 500ms linear;
+  }
+  
+  .shopping-item-card:hover .shopping-content{
+    transform: translateY(0);
+  }
+  
+  .shopping-item-card:hover .shopping-content > * {
+    opacity: 1;
+  }
+}
   
   /* Responsive columns */
   @media screen and (max-width: 900px) {
@@ -234,45 +310,6 @@ nav{
    
   }
   
-  /* Style the counter cards */
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
-    text-align: center;
-    background-color: #f1f1f1;
-    border-radius: 1em;
-    outline: var(--outline-width) solid lime;
-    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
-
-
-  }
-
-
-  .card button {
-    border: none;
-    outline: 0;
-    padding: 12px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    font-size: 18px;
-  }
-  
-  .card button:hover {
-    opacity: 0.7;
-    background-color: rgb(44, 44, 44);
-  }
-
-  .img-thumbnail{
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  
-
     .content {
         max-width: 500px;
         margin: auto;
@@ -799,5 +836,9 @@ nav{
       text-align: right;
     }
   }
+
+
+
+
 
 
