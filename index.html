@@ -3,6 +3,7 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +37,7 @@
  <ul class="menu">
      <li><a href="#">Startsida</a></li>
      <li> <div class="dropdown">
-        <a class="shop">Kläder</a>
+        <a>Kläder</a>
         <div class="dropdown-content">
           <a href="#">T-shirts</a>
           <a href="#">Byxor</a>
@@ -67,36 +68,9 @@
 <!--------------Artiklar butik------------------------------------------>
 
 
-  <div class="column">
-    <div class="shopping-item-card">
-      <div class="shopping-content">
-        <h2 class="shopping-item-title">Nike T-shirt</h2>
-        <p class="shopping-item-body">t-shirt</p>
-    <p class="shopping-item-price">399kr</p>
-    <button class="shopping-item-add">Lägg i kundkorg</button>
-  </div>
-</div>
-
-<div  class="shopping-item-card">
-  <div class="shopping-content">
-    <div v-if="image" style="width:600px; height:200px" :style="{ 'background-image': 'url(' + image + ')' }"></div>
-    <h2 class="shopping-item-title">Nike T-shirt</h2>
-    <p class="shopping-item-body">t-shirt</p>
-<p class="shopping-item-price">399kr</p>
-<button class="shopping-item-add">Lägg i kundkorg</button>
-</div>
-</div>
-
-
-<div class="shopping-item-card">
-  <div class="shopping-content">
-    <h2 class="shopping-item-title">Nike T-shirt</h2>
-    <p class="shopping-item-body">t-shirt</p>
-    <p class="shopping-item-price">399kr</p>
-  <button class="shopping-item-add">Lägg i kundkorg</button>
-  </div>
-  </div>
-</div>
+<div class="row" id="app1">
+   <showdata></showdata>
+</div>  
 
 <!--------------Artiklar butik slut------------------------------------------>
 

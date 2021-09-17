@@ -10,23 +10,52 @@ $(document).on('click','.search-cancel',function(){
 
 //---------------------------------------------------------------Vue cart
 
-Vue.component('fetch', {
-
+Vue.component('showdata', {
+created(){
+  this.getData()
+},
 data: function() {
 return {
-  imgs: [{
+ 
+ titleOfProduct: "",
+ descriptionOfProduct: "",
+ imgOfProduct: '',
+ priceOfProduct: 0,
 
-    
+ shop:[],
+  }
+},
+template: '<div>' +
+'<div class="shopping-item-card column" v-for="item in shop"> '+
+'<img :src = "item.image" class="shopping-item-image">'+
+'<div class="shopping-content">'+
+'<h2 class="shopping-item-title">{{ item.title }}</h2>'+
+
+'<p class="shopping-item-price">{{ item.price }}kr</p>'+
+'<button class="shopping-item-add">Lägg i kundkorg</button>'+
+'</div></div></div>'
+,
+
+methods: {
+  getData: function(){
+    axios.get('https://fakestoreapi.com/products?limit=3')
+    .then(response => {
+     
+      // this.titleOfProduct = response.data[0].title,
+      // this.descriptionOfProduct = response.data[0].description,
+      // this.imgOfProduct = response.data[0].image,
+      // this.priceOfProduct = response.data[0].price,
+      for (let index = 0; index < response.data.length; index++) {
+        this.shop.push(response.data[index])
+      }
+      
+    })
 
 
 
-  }]
+
   }
 }
-
-
-
-
 
 })
 
@@ -34,7 +63,7 @@ return {
 
 
 
-
+var app1 = new Vue({el: '#app1'})
 
 
 var shoppingBag = new Vue({
