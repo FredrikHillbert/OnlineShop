@@ -20,20 +20,16 @@
 	</style>
 </head>
 <body>
-    <header>
-        <h1>
-            Kläd Affär
-         </h1>
-    </header>
-
+   
+<!-- /* ============================================¤ Meny  ¤============================================ */ -->
 <nav> 
-<!--menu-bar----------------------------------------->
+
 <div class="navigation">
- <!--logo------------>
- <a href="#" class="logo"><img src="images/logo.png"></a>
- <!--menu-icon------------->
+
+ <a href="#" class="logo"><img src="test.jpg"></a>
+
  <div class="toggle"></div>
- <!--menu----------------->
+ 
  <ul class="menu">
      <li><a href="#">Startsida</a></li>
      <li> <div class="dropdown">
@@ -44,10 +40,9 @@
           <a href="#">Skor</a>
         </div>
       </div></li>
-    
  </ul>
 
- <!--right-menu----------->
+
  <div class="right-menu">
      <a href="javascript:void(0);" class="search">
          <i class="fas fa-search"></i>
@@ -63,18 +58,18 @@
  </div>
  </div>
 </nav>
-<!--menu-bar ends----------------------------------------->
+<!-- /* ============================================¤ Meny slutat ¤============================================ */ -->
 
-<!--------------Artiklar butik------------------------------------------>
+<!-- /* ============================================¤ Produkter första sida ¤============================================ */ -->
 
 
 <div class="row" id="app1">
    <showdata></showdata>
 </div>  
 
-<!--------------Artiklar butik slut------------------------------------------>
+<!-- /* ============================================¤ produkter första sida slut  ¤============================================ */ -->
 
-<!--------------specefik artiklar ------------------------------------------>
+<!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 
 <div class="content">
     <div class="main">
@@ -101,88 +96,185 @@
  </div>
 </div>
 </div>
-<!--------------specefik artiklar slutar ------------------------------------------>
-<!--------------Cheak out ------------------------------------------>
-
-
-  <!-- <div id="app">{{messeage}}</div> -->
-  <div id="app">
-
-    <!-- Header -->
-    <header class="containerCart">
-      <h1>Kassa</h1>
-    
-      <span class="count">{{ itemCount }} produkter</span>
-    </header>
-    <!-- End Header -->
-  
-    <!-- Product List -->
-    <section class="containerCart">
-      <div v-if="products.length > 0">
-        <ul class="productsCart">
-        <li class="row" v-for="(product, index) in products">
-          <div class="col left">
-            <div class="thumbnail">
-              <a href="#">
-                <img class="imgCart" :src="product.image" :alt="product.name" />
-              </a>
-            </div>
-            <div class="detail">
-              <div class="name"><a href="#">{{ product.name }}</a></div>
-              <div class="description">{{ product.description }}</div>
-              <div class="price">{{ product.price | currencyFormatted }}</div>
-            </div>
+   <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
+    <!-- /* ============================================¤ kundkorg  ¤============================================ */ -->
+    <div class="wrap">
+      <div id="accordian">
+          <!-- /* ============================================¤ kundinformation  ¤============================================ */ -->
+          <div class="step" id="step2">
+              <div class="title">
+                  <h1>Kund information</h1>
+              </div>
           </div>
-  
-          <div class="col right">
-            <div class="quantity">
-              <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
-            </div>
+         
+              <form id="form" class="topBefore">
+                  <input id="fname" type="text" placeholder="Förnamn">
+                  <input id="lname" type="text" placeholder="Efternamn">
+                  <input id="phone" type="tel" placeholder="Telefon">
+                  <input id="company" type="text" placeholder="Företag">
+                  <input id="adres" type="text" placeholder="Adress">
+                  <input id="city" type="text" placeholder="Stad">
+                  <input id="zipCode" type="text" placeholder="Postnummer">
+                  <input id="country" type="text" placeholder="Land">
+                  <input id="email" type="email" placeholder="E-MAIL">
+                 <input id="submit" type="submit" value="Nästa">
+        </form>
+         
+          <!-- /* ============================================¤ kundinformation slutar  ¤============================================ */
+          /* ============================================¤ Leverans  ¤============================================ */ -->
+          <div class="step" id="step3">
+              <div class="title">
+                  <h1>Leveransalernativ</h1>
+              </div>
             
-            <div class="removeItem">
-              <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
-            </div>
           </div>
-        </li>
+        
+              <div class="container">
+                  <form class="form cf">
+                      <section class="plan cf">
+                          <input type="radio" name="radio1" id="free" value="free"><label class="free-label four col" for="free">Hämta i butik ( 0kr )</label>
+                          <input type="radio" name="radio1" id="basic" value="basic" checked><label class="basic-label four col" for="basic">Hemleverans ( 59kr )</label>
+                          <input type="radio" name="radio1" id="premium" value="premium"><label class="premium-label four col" for="premium">Expressleverans ( 99kr )</label>
+                      </section>
+  
+                  </form>
+              </div>
+             
+        
+          <!-- /* ============================================¤ Leverans slutar ¤============================================ */
+          /* ============================================¤ Betalningsmetod  ¤============================================ */ -->
+          <div class="step" id="step4">
+              <div class="title">
+                  <h1>Betalning</h1>
+              </div>
+          </div>
+        
+              
+                  <div class="checkout-panel">
+                      <div class="panel-body">
+                     
+                  
+                        <div class="payment-method">
+                          <label for="card" class="method card">
+                            <div class="card-logos">
+                              <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>
+                              <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>
+                            </div>
+                     
+                            <div class="radio-input">
+                              <input id="card" type="radio" name="payment">
+                              
+                            </div>
+                          </label>
+                     
+                          <label for="paypal" class="method paypal">
+                            <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>
+                            <div class="radio-input">
+                              <input id="paypal" type="radio" name="payment">
+                            </div>
+                          </label>
+                        </div>
+                        <div class="input-fields">
+                          <div class="column-1">
+                            <label for="cardholder">Name</label>
+                            <input type="text" id="cardholder" />
+                     
+                            <div class="small-inputs">
+                              <div>
+                                <label for="date">Valid date</label>
+                                <input type="text" id="date"/>
+                              </div>
+                     
+                              <div>
+                                <label for="verification">CVV / CVC *</label>
+                                <input type="password" id="verification"/>
+                              </div>
+                            </div>
+                     
+                          </div>
+                          <div class="column-2">
+                            <label for="cardnumber">Card Number</label>
+                            <input type="password" id="cardnumber"/>
+                     
+                          
+                          </div>
+                        </div>
+                      </div>
+              </div>
+         
+          <!-- /* ============================================¤ Betalningsmetod slutar  ¤============================================ */
+
+          /* ============================================¤ Granskning av beställning  ¤============================================ */ -->
+           <div class="step" id="step5">
+              <div class="title">
+                  <h1>Granska beställning</h1>
+              </div>
+          </div>
+       
+          
+<div id="app">
+
+  <header class="containerCart">
+
+    <span class="count">{{ itemCount }} produkter</span>
+  </header>
+
+  <section class="containerCart">
+    <div v-if="products.length > 0">
+      <ul class="productsCart">
+      <li class="row" v-for="(product, index) in products">
+        <div class="col left">
+          <div class="thumbnail">
+            <a href="#">
+              <img class="imgCart" :src="product.image" :alt="product.name" />
+            </a>
+          </div>
+          <div class="detail">
+            <div class="name"><a href="#">{{ product.name }}</a></div>
+            <div class="description">{{ product.description }}</div>
+            <div class="price">{{ product.price | currencyFormatted }}</div>
+          </div>
+        </div>
+        <div class="col right">
+          <div class="quantity">
+            <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
+          </div>
+          <div class="removeItem">
+            <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
+          </div>
+        </div>
+      </li>
+    </ul>
+    </div>
+    <div v-else class="empty-product">
+      <h3>Det finns inga produkter i din kundkorg.</h3>
+      <button>Tillbaka till butik</button>
+    </div>
+  </section>
+  <section class="containerCart" v-if="products.length > 0">
+    <div class="promotion">
+      <label for="promo-code">Rabattkod?</label>
+      <input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
+    </div>
+    <div class="summaryCheckOut">
+      <ul>
+        <li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>
+        <li>Leverans: <span>{{ subTotal | currencyFormatted }}</span></li>
+        <li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>
+        <li>Momskostnad: <span>{{ tax | currencyFormatted }}</span></li>
+        <li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>
       </ul>
-      </div>
-      <div v-else class="empty-product">
-        <h3>Det finns inga produkter i din kundkorg.</h3>
-        <button>Tillbaka till butik</button>
-      </div>
-    </section>
-    <!-- End Product List -->
-    
-    <!-- Summary -->
-    <section class="containerCart" v-if="products.length > 0">
-      <div class="promotion">
-        <label for="promo-code">Rabattkod?</label>
-        <input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
-      </div>
-  
-      <div class="summaryCheckOut">
-        <ul>
-          <li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>
-          <li>Leverans: <span>{{ subTotal | currencyFormatted }}</span></li>
-          <li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>
-          <li>Momskostnad: <span>{{ tax | currencyFormatted }}</span></li>
-          <li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>
-        </ul>
-      </div>
-  
-      <div class="checkout">
-        <button type="button">Betala</button>
-      </div>
-    </section>
-    <!-- End Summary -->
-  </div>
+    </div>
+    <div class="checkout">
+      <button type="button">Slutför beställning</button>
+    </div>
+  </section>
+</div>    
+</div>    
+</div>     
+<!-- /* ============================================¤ Granskning av beställning slutar  ¤============================================ */    -->
 
-<!--------------Cheak out ENDS ------------------------------------------>
-
-<!--------------BETALNINGSMETOD ------------------------------------------>
-
-
-<!--------------BETALNINGSMETOD SLUT ------------------------------------------>
+<!-- /* ============================================¤ kundkorg slutar  ¤============================================ */ -->
 
 
 
@@ -210,7 +302,7 @@
 
 
 
-<!--------------Cheak out ends ------------------------------------------>
+
 
 
  <!--search-bar----------------------------------->
