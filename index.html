@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+   
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta charset="UTF-8">
@@ -10,64 +11,118 @@
     <title>Homepage</title>
     <link rel="shortcut icon" href="images/fav-icon.png"/>
     <link rel ="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--style----->
 	<style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     
-		body{
-			font-family:poppins;
-		}
 	</style>
 </head>
 <body>
    
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
-<nav> 
-
-<div class="navigation">
-
- <a href="#" class="logo"><img src="test.jpg"></a>
-
- <div class="toggle"></div>
- 
- <ul class="menu">
-     <li><a href="#">Startsida</a></li>
-     <li> <div class="dropdown">
-        <a>Kläder</a>
-        <div class="dropdown-content">
-          <a href="#">T-shirts</a>
-          <a href="#">Byxor</a>
-          <a href="#">Skor</a>
-        </div>
-      </div></li>
- </ul>
 
 
- <div class="right-menu">
-     <a href="javascript:void(0);" class="search">
-         <i class="fas fa-search"></i>
-     </a>
-     <a href="javascript:void(0);" class="user">
-         <i class="far fa-user"></i>
-     </a>
-     <a href="#">
-         <i class="fas fa-shopping-cart">
-             <span class="num-cart-product">0</span>
-         </i>
-     </a>
- </div>
- </div>
-</nav>
+<div class="topnav" id="myTopnav">
+  <a href="#home" class="active">Startsida</a>
+  <div class="dropdown">
+    <button class="dropbtn">Kläder 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Byxor</a>
+      <a href="#">T-shirt</a>
+      <a href="#">Jeans</a>
+    </div>
+  </div>
+ <div class="itemMeny" >
+    <a href="javascript:void(0);" class="testa search"> <i class="fas fa-search"></i></a>
+    <a href="" class="user"> <i class="far fa-user"></i></a>
+    <a href="#"><i class="fas fa-shopping-cart"> <span class="num-cart-product">0</span></i></a>
+  </div>
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
 <!-- /* ============================================¤ Meny slutat ¤============================================ */ -->
 
 <!-- /* ============================================¤ Produkter första sida ¤============================================ */ -->
 
 
-<div class="row" id="app1">
+<div class="row" id="app1" >
    <showdata></showdata>
 </div>  
 
 <!-- /* ============================================¤ produkter första sida slut  ¤============================================ */ -->
+
+<!-- /* ============================================¤ produkter efter valt dropdown  ¤============================================ */ -->
+
+
+
+
+<div class="row">
+  <div class="column1">
+    <div class="card1">
+      <img src="Clothing.png" alt="Denim Jeans" style="width:100%">
+      <h1>Tailored Jeans</h1>
+      <p class="price">$19.99</p>
+      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+      <p><button>Add to Cart</button></p>
+    </div>
+  </div>
+  <div class="column1">
+    <div class="card1">
+      <img src="Clothing.png" alt="Denim Jeans" style="width:100%">
+      <h1>Tailored Jeans</h1>
+      <p class="price">$19.99</p>
+      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+      <p><button>Add to Cart</button></p>
+    </div>
+  </div>
+  <div class="column1">
+    <div class="card1 ">
+      <img src="Clothing.png" alt="Denim Jeans" style="width:100%">
+      <h1>Tailored Jeans</h1>
+      <p class="price ">$19.99</p>
+      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+      <p><button>Add to Cart</button></p>
+    </div>
+  </div>
+  <div class="column1">
+    <div class="card1">
+      <img src="Clothing.png" alt="Denim Jeans" style="width:100%">
+      <h1>Tailored Jeans</h1>
+      <p class="price">$19.99</p>
+      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+      <p><button>Add to Cart</button></p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- /* ============================================¤ produkter efter valt dropdown slutar ¤============================================ */ -->
 
 <!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 
@@ -193,6 +248,8 @@
                      
                           </div>
                           <div class="column-2">
+                      
+                        
                             <label for="cardnumber">Card Number</label>
                             <input type="password" id="cardnumber"/>
                      

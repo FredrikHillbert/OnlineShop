@@ -8,6 +8,22 @@ $(document).on('click','.search-cancel',function(){
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //---------------------------------------------------------------Vue cart
 
 Vue.component('showdata', {
@@ -184,3 +200,4 @@ var shoppingBag = new Vue({
     }
   }
 });
+
