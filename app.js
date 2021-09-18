@@ -17,6 +17,9 @@ function myFunction() {
   }
 }
 //---------------------------------------------------------------Vue cart
+var listShopItems = new Array();
+
+
 
 Vue.component('showdata', {
 created(){
@@ -44,7 +47,9 @@ methods: {
     .then(response => {
       for (let index = 0; index < response.data.length; index++) {
         this.shop.push(response.data[index])
+      
       }
+     
       
     })
   }
@@ -59,6 +64,9 @@ Vue.component('showitems', {
 created(){
   this.$root.$refs.showitems = this;
 },
+updated(){
+  this.$root.$refs.showitems = this;
+},
 
 
 data: function(){
@@ -68,54 +76,18 @@ data: function(){
 },
 
 template: 
-// '<div>'+
-// ' <div class="column1">'+
-// '<div class="card1">'+
-//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
-//   '<h1>Tailored Jeans</h1>'+
-//   '<p class="price">$19.99</p>'+
-//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
-//  '<p><button>Add to Cart</button></p>'+
-// '</div>'+
-// '</div>'+
-// '<div class="column1">'+
-// '<div class="card1">'+
-//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
-//   '<h1>Tailored Jeans</h1>'+
-//   '<p class="price">$19.99</p>'+
-//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
-//   '<p><button>Add to Cart</button></p>'+
-// '</div>'+
-// '</div>'+
-// '<div class="column1">'+
-// '<div class="card1 ">'+
-//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
-//   '<h1>Tailored Jeans</h1>'+
-//   '<p class="price ">$19.99</p>'+
-//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
-//   '<p><button>Add to Cart</button></p>'+
-// '</div>'+
-// '</div>'+
-// '<div class="column1">'+
-// '<div class="card1">'+
-//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
-//   '<h1>Tailored Jeans</h1>'+
-//   '<p class="price">$19.99</p>'+
-//  '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
-//   '<p><button>Add to Cart</button></p>'+
-// '</div>'+
-// '</div>'+
-// '</div>'
-// ,
-'<div>' +
-'<div class="shopping-item-card column" v-for="item in shopitems"> '+
-'<img :src = "item.image" class="shopping-item-image">'+
-'<div class="shopping-content">'+
-'<h2 class="shopping-item-title">{{ item.title }}</h2>'+
 
-'<p class="shopping-item-price">{{ item.price }}kr</p>'+
-'<button class="shopping-item-add">Lägg i kundkorg</button>'+
-'</div></div></div>'
+'<div>'+
+'<div class="column1"  v-for="item in shopitems">'+
+'<div :id="item.id" class="card1"> '+
+'<a>'+
+'<img :src = "item.image" class="shopitemImg">'+
+'</a>'+
+'<h4>{{ item.title }}</h4>'+
+'<p >{{ item.price }} kr</p>'+
+'</div>'+
+'</div>'+
+'</div>'
 ,
 
 methods: {
@@ -123,12 +95,17 @@ methods: {
     axios.get(url)
     .then(response => {
 
+      this.shopitems=[];
+
       for (let index = 0; index < response.data.length; index++) {
-        this.shopitems.push(response.data[index])
+        this.shopitems.push(response.data[index]);
+        listShopItems.push(response.data[index]);
       }
 
-
-      console.log(response.data)
+      for (let index = 0; index < listShopItems.length; index++) {
+        console.log(listShopItems[index])
+      }
+      
     })
   }
 }
@@ -282,6 +259,23 @@ new Vue({
           this.payment = false;
           var url = "men's clothing"
           this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
+          break;
+          case 3:
+            this.homepage = false;
+            this.clothpage = true;
+            this. specific = false;
+            this.payment = false;
+            var url = "men's clothing"
+            this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
+            break;
+            case 4:
+              this.homepage = false;
+              this.clothpage = true;
+              this. specific = false;
+              this.payment = false;
+              var url = "women's clothing"
+              this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
+              break;
         default:
           break;
       }

@@ -270,7 +270,7 @@ body{
   padding: 2%;
   height: 500px;
   max-height: 500px;
-  object-fit:fill;
+  object-fit:cover;
 
 }
 
@@ -1243,72 +1243,42 @@ input[type='password']:focus {
    
 
 
-    /* Float four columns side by side */
+  
 .column1 {
   float: left;
   width: 25%;
   padding: 0 10px;
 }
 
-/* Remove extra left and right margins, due to padding in columns */
+
 .row {margin: 0 -5px;}
 
-/* Clear floats after the columns */
+
 .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
-/* Style the counter cards */
+
 .card1 {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
+  height: 400px;
   margin: auto;
+  margin-bottom: 10%;
   text-align: center;
   font-family: arial;
   border-radius: 1em;
   outline: var(--outline-width) solid lime;
   box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-}
-.card1:hover{
-  transform: scale(1.04);
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
- 
-}
-
-.price {
-  color: grey;
-  font-size: 22px;
-}
-
-.card1 button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-
-.card1 button:hover {
-  opacity: 0.7;
   
 }
 
+
 /* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-  .column {
+@media screen and (max-width: 1200px) {
+  .column1 {
     width: 100%;
     display: block;
     margin-bottom: 20px;
@@ -1318,7 +1288,29 @@ input[type='password']:focus {
 
     /* =========================================================Prodkter efter valt dropdown slut*/
 
+    .shopitemImg{
+      width:250; 
+      height:200px; 
+      padding:5% ;
+      transition: all .2s ease-in-out;
+      cursor: pointer;
+    }
+    .shopitemImg:hover{
+      transform: scale(1.1); 
+    }
 
+    .card1 h4{
+      padding:5%; margin-top: 50px;
+      cursor: pointer;
 
+    }
+    .card1 p{
+      cursor: pointer;
+
+    }
+  
+  
+  
+    
 
 

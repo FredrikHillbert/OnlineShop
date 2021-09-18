@@ -30,9 +30,9 @@
     </button>
     <div class="dropdown-content">
      
-      <a style="cursor: pointer;" @click="changePage(2)"  >Byxor</a>
-      <a  style="cursor: pointer;" @click="isShowing2 ^= true, getDataView2()" href="#">T-shirt</a>
-      <a style="cursor: pointer;" @click="isShowing3 ^= true, getDataView3()"  href="#">Sneakers</a>
+      <a  style="cursor: pointer;" @click="changePage(3)" href="#">Herr</a>
+      <a style="cursor: pointer;" @click="changePage(4)"  href="#">Dam</a>
+      <a style="cursor: pointer;" @click="changePage(2)">Smycken</a>
     </div>
   </div>
  <div class="itemMeny" >
@@ -59,6 +59,7 @@
 
 
 <div v-show="clothpage" class="row">
+
   <!-- <div class="column1">
     <div class="card1">
       <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
@@ -96,6 +97,7 @@
     </div>
   </div> -->
   <showitems></showitems>
+
 </div>
 
 
