@@ -56,14 +56,13 @@ methods: {
 
 Vue.component('showitems', {
 
-updated(){
+created(){
   this.$root.$refs.showitems = this;
 },
 
 
 data: function(){
   return {
-    url: "",
     shopitems:[],
   }
 },
@@ -121,7 +120,7 @@ template:
 
 methods: {
   getItems: function(url){
-    axios.get(this.url)
+    axios.get(url)
     .then(response => {
 
       for (let index = 0; index < response.data.length; index++) {
