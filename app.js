@@ -16,84 +16,6 @@ function myFunction() {
     x.className = "topnav";
   }
 }
-
- //============================================= Test att hide and show element!
-
-  var vue = new Vue({
-   el:"#app11",
-   data: {
-     isShowing:false,
-     
-     isShowing2:false,
-
-     isShowing3:false,
-
-     
-
-   },
-   methods: {
-    getDataView: function(){
-    
-    if(this.isShowing)
-    {
-     this.isShowing2=false;
-
-     this.isShowing3=false;
-
-    }
- 
-  
-    },
-    getDataView2: function(){
-    
-     
-      if(this.isShowing2)
-      {
-       this.isShowing=false;
-  
-       this.isShowing3=false;
-  
-      }
-    
-    
-      },
-      getDataView3: function(){
-      
-        if(this.isShowing3)
-        {
-         this.isShowing=false;
-         this.isShowing2=false;
-    
-        }
-      
-      
-        },
-        getDataViewMenu: function(){
-         
-           this.isShowing=false;
-           this.isShowing2=false;
-           this.isShowing3=false;
-        
-          },
-        
-  }
- })
- 
- 
-  
- //============================================= Test att hide and show element slut
-
-
-
-
-
-
-
-
-
-
-
-
 //---------------------------------------------------------------Vue cart
 
 Vue.component('showdata', {
@@ -102,12 +24,6 @@ created(){
 },
 data: function() {
 return {
- 
- titleOfProduct: "",
- descriptionOfProduct: "",
- imgOfProduct: '',
- priceOfProduct: 0,
-
  shop:[],
   }
 },
@@ -126,20 +42,11 @@ methods: {
   getData: function(){
     axios.get('https://fakestoreapi.com/products?limit=3')
     .then(response => {
-     
-      // this.titleOfProduct = response.data[0].title,
-      // this.descriptionOfProduct = response.data[0].description,
-      // this.imgOfProduct = response.data[0].image,
-      // this.priceOfProduct = response.data[0].price,
       for (let index = 0; index < response.data.length; index++) {
         this.shop.push(response.data[index])
       }
       
     })
-
-
-
-
   }
 }
 
@@ -147,8 +54,87 @@ methods: {
 
 
 
-var app1 = new Vue({el: '#app1'})
+Vue.component('showitems', {
 
+updated(){
+  this.$root.$refs.showitems = this;
+},
+
+
+data: function(){
+  return {
+    url: "",
+    shopitems:[],
+  }
+},
+
+template: 
+// '<div>'+
+// ' <div class="column1">'+
+// '<div class="card1">'+
+//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
+//   '<h1>Tailored Jeans</h1>'+
+//   '<p class="price">$19.99</p>'+
+//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
+//  '<p><button>Add to Cart</button></p>'+
+// '</div>'+
+// '</div>'+
+// '<div class="column1">'+
+// '<div class="card1">'+
+//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
+//   '<h1>Tailored Jeans</h1>'+
+//   '<p class="price">$19.99</p>'+
+//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
+//   '<p><button>Add to Cart</button></p>'+
+// '</div>'+
+// '</div>'+
+// '<div class="column1">'+
+// '<div class="card1 ">'+
+//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
+//   '<h1>Tailored Jeans</h1>'+
+//   '<p class="price ">$19.99</p>'+
+//   '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
+//   '<p><button>Add to Cart</button></p>'+
+// '</div>'+
+// '</div>'+
+// '<div class="column1">'+
+// '<div class="card1">'+
+//   '<img src="byxor.webp" alt="Denim Jeans" style="width:100%">'+
+//   '<h1>Tailored Jeans</h1>'+
+//   '<p class="price">$19.99</p>'+
+//  '<p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>'+
+//   '<p><button>Add to Cart</button></p>'+
+// '</div>'+
+// '</div>'+
+// '</div>'
+// ,
+'<div>' +
+'<div class="shopping-item-card column" v-for="item in shopitems"> '+
+'<img :src = "item.image" class="shopping-item-image">'+
+'<div class="shopping-content">'+
+'<h2 class="shopping-item-title">{{ item.title }}</h2>'+
+
+'<p class="shopping-item-price">{{ item.price }}kr</p>'+
+'<button class="shopping-item-add">Lägg i kundkorg</button>'+
+'</div></div></div>'
+,
+
+methods: {
+  getItems: function(url){
+    axios.get(this.url)
+    .then(response => {
+
+      for (let index = 0; index < response.data.length; index++) {
+        this.shopitems.push(response.data[index])
+      }
+
+
+      console.log(response.data)
+    })
+  }
+}
+
+})
 
 var shoppingBag = new Vue({
   el: "#app",
@@ -269,3 +255,42 @@ var shoppingBag = new Vue({
   }
 });
 
+//============================================= Test att hide and show element!
+
+new Vue({
+  el: '#wrapper',
+  data:{
+    homepage: true,
+    clothpage: false,
+    specific:false,
+    payment: false,
+  },
+
+  methods:{
+    changePage: function(text){
+
+      switch (text) {
+        case 1:
+          this.homepage = true;
+          this.clothpage = false;
+          this. specific = false;
+          this.payment = false;
+          break;
+        case 2:
+          this.homepage = false;
+          this.clothpage = true;
+          this. specific = false;
+          this.payment = false;
+          var url = "men's clothing"
+          this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
+        default:
+          break;
+      }
+
+
+    }
+  }
+})
+ 
+  
+ //============================================= Test att hide and show element slut

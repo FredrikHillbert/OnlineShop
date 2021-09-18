@@ -19,19 +19,18 @@
 	</style>
 </head>
 <body >
-   
+<div id ="wrapper">  
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
-<div id="app11">
 
 <div class="topnav" id="myTopnav">
-  <a style="cursor: pointer;" @click="getDataViewMenu()" href="" class="active">Startsida</a>
+  <a style="cursor: pointer;" @click="changePage(1)" href="" class="active">Startsida</a>
   <div class="dropdown">
     <button class="dropbtn">Kläder 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
      
-      <a style="cursor: pointer;" @click="isShowing ^= true, getDataView()"  >Byxor</a>
+      <a style="cursor: pointer;" @click="changePage(2)"  >Byxor</a>
       <a  style="cursor: pointer;" @click="isShowing2 ^= true, getDataView2()" href="#">T-shirt</a>
       <a style="cursor: pointer;" @click="isShowing3 ^= true, getDataView3()"  href="#">Sneakers</a>
     </div>
@@ -48,7 +47,7 @@
 <!-- /* ============================================¤ Produkter första sida ¤============================================ */ -->
 
 
-<div class="row" id="app1" >
+<div v-show="homepage" class="row" >
    <showdata></showdata>
 </div>  
 
@@ -59,8 +58,8 @@
 
 
 
-<div  class="row" v-show="isShowing">
-  <div class="column1">
+<div v-show="clothpage" class="row">
+  <!-- <div class="column1">
     <div class="card1">
       <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
       <h1>Tailored Jeans</h1>
@@ -95,108 +94,9 @@
       <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
       <p><button>Add to Cart</button></p>
     </div>
-  </div>
+  </div> -->
+  <showitems></showitems>
 </div>
-
-<div  class="row" v-show="isShowing2">
-  <div class="column1">
-    <div class="card1">
-      <img src="T-shirt.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="T-shirt.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1 ">
-      <img src="T-shirt.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price ">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="T-shirt.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-</div>
-
-<div  class="row" v-show="isShowing3">
-  <div class="column1">
-    <div class="card1">
-      <img src="sneakers.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="sneakers.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1 ">
-      <img src="sneakers.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price ">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="sneakers.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -205,7 +105,7 @@
 
 <!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 
-<div class="content">
+<div v-show="specific" class="content">
     <div class="main">
       <h2>Märket</h2>
       <br>
@@ -230,10 +130,9 @@
  </div>
 </div>
 </div>
-</div>
    <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
     <!-- /* ============================================¤ kundkorg  ¤============================================ */ -->
-    <div class="wrap">
+    <div v-show="payment" class="wrap">
       <div id="accordian">
           <!-- /* ============================================¤ kundinformation  ¤============================================ */ -->
           <div class="step" id="step2">
@@ -414,7 +313,7 @@
 <!-- /* ============================================¤ kundkorg slutar  ¤============================================ */ -->
 
 
-
+</div> 
 
 
 
