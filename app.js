@@ -9,9 +9,71 @@ $(document).on('click','.search-cancel',function(){
 
 
 
+ //============================================= Test att hide and show element!
 
+  var vue = new Vue({
+   el:"#app11",
+   data: {
+     isShowing:false,
+     
+     isShowing2:false,
 
+     isShowing3:false,
 
+     
+
+   },
+   methods: {
+    getDataView: function(){
+    
+    if(this.isShowing)
+    {
+     this.isShowing2=false;
+
+     this.isShowing3=false;
+
+    }
+ 
+  
+    },
+    getDataView2: function(){
+    
+     
+      if(this.isShowing2)
+      {
+       this.isShowing=false;
+  
+       this.isShowing3=false;
+  
+      }
+    
+    
+      },
+      getDataView3: function(){
+      
+        if(this.isShowing3)
+        {
+         this.isShowing=false;
+         this.isShowing2=false;
+    
+        }
+      
+      
+        },
+        getDataViewMenu: function(){
+         
+           this.isShowing=false;
+           this.isShowing2=false;
+           this.isShowing3=false;
+        
+          },
+        
+  }
+ })
+ 
+ 
+  
+ //============================================= Test att hide and show element slut
 
 
 
@@ -74,8 +136,6 @@ methods: {
 }
 
 })
-
-
 
 
 
