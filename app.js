@@ -17,7 +17,7 @@ function myFunction() {
   }
 }
 //---------------------------------------------------------------Vue cart
-var listShopItems = new Array();
+currentShoppingBag = new Array();
 
 
 
@@ -100,13 +100,8 @@ methods: {
 
       for (let index = 0; index < response.data.length; index++) {
         this.shopitems.push(response.data[index]);
-        listShopItems.push(response.data[index]);
+        
       }
-
-      for (let index = 0; index < listShopItems.length; index++) {
-        console.log(listShopItems[index])
-      }
-      
     })
   },
   showProduct: function(items,id){
@@ -154,7 +149,7 @@ Vue.component('showproduct', {
   ' <option value="4">XL</option>'+
    '</select>'+     
   ' </div>'+
- '<p><button>Lägg i kundkorg</button></p>'+
+ '<p><button @click="addProductToShoppingBag(productitems, item.id)">Lägg i kundkorg</button></p>'+
 '</div>'+
 '</div>'+
 '</div>'+
@@ -170,135 +165,194 @@ Vue.component('showproduct', {
         this.productitems.push(items[index])
       
       }
-       
-  
-       
-  
-    },
-  }
-  })
+      },
 
- 
-  //-------Show product slut-----------------------------
-
-var shoppingBag = new Vue({
-  el: "#app",
-  data: {
-    products: [
-      {
-        image: "https://via.placeholder.com/200x150",
-        name: "Produkt",
-        description: "Beskrivning produkt",
-        price: 299,
-        quantity: 2
-      },
-      {
-        image: "https://via.placeholder.com/200x150",
-        name: "Produkt",
-        description: "Beskrivning produkt",
-        price: 446,
-        quantity: 1
-      },
-      {
-          image: "https://via.placeholder.com/200x150",
-          name: "Produkt",
-          description: "Beskrivning produkt",
-          price: 169,
-          quantity: 1
-        }
-    ],
-    tax: 5,
-    promotions: [
-      {
-        code: "SUMMER",
-        discount: "50%"
-      },
-      {
-        code: "AUTUMN",
-        discount: "40%"
-      },
-      {
-        code: "WINTER",
-        discount: "30%"
-      }
-    ],
-    promoCode: "",
-    discount: 0
-  },
-  computed: {
-    itemCount: function() {
-      var count = 0;
-
-      for (var i = 0; i < this.products.length; i++) {
-        count += parseInt(this.products[i].quantity) || 0;
+      addProductToShoppingBag: function(items, id){
+        currentShoppingBag.push(items[0])
       }
 
-      return count;
     },
-    subTotal: function() {
-      var subTotal = 0;
+   
+  });
+//-------Show product slut-----------------------------
 
-      for (var i = 0; i < this.products.length; i++) {
-        subTotal += this.products[i].quantity * this.products[i].price;
-      }
 
-      return subTotal;
-    },
-    discountPrice: function() {
-      return this.subTotal * this.discount / 100;
-    },
-    totalPrice: function() {
-      return this.subTotal - this.discountPrice + this.tax;
+
+Vue.component('showshoppingbag', {
+
+  data: function(){
+    return{
+      shoppingBag: []
     }
   },
-  filters: {
-    currencyFormatted: function(value) {
-      return Number(value).toLocaleString("sv", {
-        style: "currency",
-        currency: "SEK"
-      });
-    }
-  },
-  methods: {
-    updateQuantity: function(index, event) {
-      var product = this.products[index];
-      var value = event.target.value;
-      var valueInt = parseInt(value);
 
-      // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
-      if (value === "") {
-        product.quantity = value;
-      } else if (valueInt > 0 && valueInt < 100) {
-        product.quantity = valueInt;
-      }
+template:
+'<div>'+
+'<section class="containerCart">'+
+'<div v-if="shoppingBag.length > 0">'+
+'<ul class="productsCart">'+
+'<li class="row" v-for="(product, index) in shoppingBag">'+
+'<div class="col left">'+
+'<div class="thumbnail">'+
+'<a href="#">'+
+'<img class="imgCart" :src="product.image" :alt="product.title" />'+
+'</a>'+
+'</div>'+
+'<div class="detail">'+
+'<div class="name"><a href="#">{{ product.title }}</a></div>'+
+'<div class="description">{{ product.description }}</div>'+
+'<div class="price">{{ product.price }}</div>'+
+'</div>'+
+'</div>'+
+'<div class="col right">'+
+'<div class="quantity">'+
+'<input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />'+
+'</div>'+
+'<div class="removeItem">'+
+'<svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>'+
+'</div>'+
+'</div>'+
+'</li>'+
+'</ul>'+
+'</div>'+
+'<div v-else class="empty-product">'+
+'<h3>Det finns inga produkter i din kundkorg.</h3>'+
+'<button>Tillbaka till butik</button>'+
+'</div>'+
+'</section>'+
+'</div>'
+,
 
-      this.$set(this.products, index, product);
-    },
-    checkQuantity: function(index, event) {
-      // Update quantity to 1 if it is empty
-      if (event.target.value === "") {
-        var product = this.products[index];
-        product.quantity = 1;
-        this.$set(this.products, index, product);
-      }
-    },
-    removeItem: function(index) {
-      this.products.splice(index, 1);
-    },
-    checkPromoCode: function() {
-      for (var i = 0; i < this.promotions.length; i++) {
-        if (this.promoCode === this.promotions[i].code) {
-          this.discount = parseFloat(
-            this.promotions[i].discount.replace("%", "")
-          );
-          return;
-        }
-      }
 
-      alert("Sorry, the Promotional code you entered is not valid!");
+methods: {
+  getShoppingBag: function(){
+    for (let index = 0; index < currentShoppingBag.length; index++) {
+      this.shoppingBag.push(currentShoppingBag[index])
     }
   }
-});
+}
+})
+
+
+
+// var shoppingBag = new Vue({
+//   el: "#app",
+//   data: {
+//     products: [
+//       {
+//         image: "https://via.placeholder.com/200x150",
+//         name: "Produkt",
+//         description: "Beskrivning produkt",
+//         price: 299,
+//         quantity: 2
+//       },
+//       {
+//         image: "https://via.placeholder.com/200x150",
+//         name: "Produkt",
+//         description: "Beskrivning produkt",
+//         price: 446,
+//         quantity: 1
+//       },
+//       {
+//           image: "https://via.placeholder.com/200x150",
+//           name: "Produkt",
+//           description: "Beskrivning produkt",
+//           price: 169,
+//           quantity: 1
+//         }
+//     ],
+//     tax: 5,
+//     promotions: [
+//       {
+//         code: "SUMMER",
+//         discount: "50%"
+//       },
+//       {
+//         code: "AUTUMN",
+//         discount: "40%"
+//       },
+//       {
+//         code: "WINTER",
+//         discount: "30%"
+//       }
+//     ],
+//     promoCode: "",
+//     discount: 0
+//   },
+//   computed: {
+//     itemCount: function() {
+//       var count = 0;
+
+//       for (var i = 0; i < this.products.length; i++) {
+//         count += parseInt(this.products[i].quantity) || 0;
+//       }
+
+//       return count;
+//     },
+//     subTotal: function() {
+//       var subTotal = 0;
+
+//       for (var i = 0; i < this.products.length; i++) {
+//         subTotal += this.products[i].quantity * this.products[i].price;
+//       }
+
+//       return subTotal;
+//     },
+//     discountPrice: function() {
+//       return this.subTotal * this.discount / 100;
+//     },
+//     totalPrice: function() {
+//       return this.subTotal - this.discountPrice + this.tax;
+//     }
+//   },
+//   filters: {
+//     currencyFormatted: function(value) {
+//       return Number(value).toLocaleString("sv", {
+//         style: "currency",
+//         currency: "SEK"
+//       });
+//     }
+//   },
+//   methods: {
+//     updateQuantity: function(index, event) {
+//       var product = this.products[index];
+//       var value = event.target.value;
+//       var valueInt = parseInt(value);
+
+//       // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
+//       if (value === "") {
+//         product.quantity = value;
+//       } else if (valueInt > 0 && valueInt < 100) {
+//         product.quantity = valueInt;
+//       }
+
+//       this.$set(this.products, index, product);
+//     },
+//     checkQuantity: function(index, event) {
+//       // Update quantity to 1 if it is empty
+//       if (event.target.value === "") {
+//         var product = this.products[index];
+//         product.quantity = 1;
+//         this.$set(this.products, index, product);
+//       }
+//     },
+//     removeItem: function(index) {
+//       this.products.splice(index, 1);
+//     },
+//     checkPromoCode: function() {
+//       for (var i = 0; i < this.promotions.length; i++) {
+//         if (this.promoCode === this.promotions[i].code) {
+//           this.discount = parseFloat(
+//             this.promotions[i].discount.replace("%", "")
+//           );
+//           return;
+//         }
+//       }
+
+//       alert("Sorry, the Promotional code you entered is not valid!");
+//     }
+//   }
+// });
 
 //============================================= Test att hide and show element!
 

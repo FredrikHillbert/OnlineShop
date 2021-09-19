@@ -65,7 +65,7 @@
 </div>
    <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
     <!-- /* ============================================¤ kundkorg  ¤============================================ */ -->
-    <div v-show="payment" class="wrap">
+    <div v-show="homepage" class="wrap">
       <div id="accordian">
           <!-- /* ============================================¤ kundinformation  ¤============================================ */ -->
           <div class="step" id="step2">
@@ -182,8 +182,8 @@
        
           
 <div id="app">
-
-  <header class="containerCart">
+<showshoppingbag></showshoppingbag>
+  <!-- <header class="containerCart">
 
     <span class="count">{{ itemCount }} produkter</span>
   </header>
@@ -219,8 +219,8 @@
       <h3>Det finns inga produkter i din kundkorg.</h3>
       <button>Tillbaka till butik</button>
     </div>
-  </section>
-  <section class="containerCart" v-if="products.length > 0">
+  </section> -->
+  <!-- <section class="containerCart" v-if="products.length > 0">
     <div class="promotion">
       <label for="promo-code">Rabattkod?</label>
       <input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
@@ -237,7 +237,7 @@
     <div class="checkout">
       <button type="button">Slutför beställning</button>
     </div>
-  </section>
+  </section> -->
 </div>    
 </div>    
 </div>     
