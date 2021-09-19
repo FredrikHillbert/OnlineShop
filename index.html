@@ -13,10 +13,7 @@
     <link rel ="stylesheet" href="style.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--style----->
-	<style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-    
-	</style>
+
 </head>
 <body >
 <div id ="wrapper">  
@@ -30,8 +27,8 @@
     </button>
     <div class="dropdown-content">
      
-      <a  style="cursor: pointer;" @click="changePage(3)" href="#">Herr</a>
-      <a style="cursor: pointer;" @click="changePage(4)"  href="#">Dam</a>
+      <a style="cursor: pointer;" @click="changePage(3)">Herr</a>
+      <a style="cursor: pointer;" @click="changePage(4)">Dam</a>
       <a style="cursor: pointer;" @click="changePage(2)">Smycken</a>
     </div>
   </div>
@@ -55,82 +52,16 @@
 
 <!-- /* ============================================¤ produkter efter valt dropdown  ¤============================================ */ -->
 
-
-
-
 <div v-show="clothpage" class="row">
-
-  <!-- <div class="column1">
-    <div class="card1">
-      <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1 ">
-      <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price ">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div>
-  <div class="column1">
-    <div class="card1">
-      <img src="byxor.webp" alt="Denim Jeans" style="width:100%">
-      <h1>Tailored Jeans</h1>
-      <p class="price">$19.99</p>
-      <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-      <p><button>Add to Cart</button></p>
-    </div>
-  </div> -->
-  <showitems></showitems>
-
+  <showitems ref="showProduct()"></showitems>
 </div>
-
-
-
 
 <!-- /* ============================================¤ produkter efter valt dropdown slutar ¤============================================ */ -->
 
 <!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 
-<div v-show="specific" class="content">
-    <div class="main">
-      <h2>Märket</h2>
-      <br>
-      <h5>info</h5>
-      <div class="fakeimg"><img src = "test.jpg"/></div>
-      
-      <div class="recipes_header_summary">
-        <div class="flex-horiz-container">
-             <div class="selector">
-                <p>Välj storlek</p>
-                <select id="select">
-                    <option value="0">XS</option>
-                    <option value="1">S</option>
-                    <option value="2">M</option>
-                    <option value="3">L</option>
-                    <option value="4">XL</option>
-                </select>
-               
-              </div>
-              <p><button>Lägg i kundkorg</button></p>
-    </div>
- </div>
-</div>
+<div v-show="specific" class="content"> 
+<showproduct></showproduct>
 </div>
    <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
     <!-- /* ============================================¤ kundkorg  ¤============================================ */ -->

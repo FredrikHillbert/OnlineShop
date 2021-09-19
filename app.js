@@ -21,6 +21,7 @@ var listShopItems = new Array();
 
 
 
+
 Vue.component('showdata', {
 created(){
   this.getData()
@@ -80,7 +81,7 @@ template:
 '<div>'+
 '<div class="column1"  v-for="item in shopitems">'+
 '<div :id="item.id" class="card1"> '+
-'<a>'+
+'<a @click="showProduct(shopitems,item.id);">'+
 '<img :src = "item.image" class="shopitemImg">'+
 '</a>'+
 '<h4>{{ item.title }}</h4>'+
@@ -107,10 +108,78 @@ methods: {
       }
       
     })
-  }
+  },
+  showProduct: function(items,id){
+    
+    this.$root.$refs.changePageMethod.changePage(5,items,id);
+  },
+  
 }
 
 })
+
+Vue.component('showproduct', {
+
+  created(){
+    this.$root.$refs.showproduct = this;
+  },
+  updated(){
+    this.$root.$refs.showproduct = this;
+  },
+  
+  
+  data: function(){
+    return {
+      productitems:[],
+    }
+  },
+  
+  template: 
+  
+  '<div>'+
+  '<div class="main" v-for = "item in productitems" >'+
+  '<h2>{{ item.title }}</h2> '+
+  '<h5>{{ item.description }}</h5>'+
+  ' <div class="fakeimg"><img :src = "item.image" ></div>'+
+  '<div class="recipes_header_summary">'+
+  '<div class="flex-horiz-container">'+
+  '<div class="selector">'+
+  '<h3>Pris<h4>{{ item.price}} kr</h4></h3>'+
+  '<p>Välj storlek</p>'+
+  '<select id="select">'+
+  '<option value="0">XS</option>'+
+  '<option value="1">S</option>'+
+  '<option value="2">M</option>'+
+  '<option value="3">L</option>'+
+  ' <option value="4">XL</option>'+
+   '</select>'+     
+  ' </div>'+
+ '<p><button>Lägg i kundkorg</button></p>'+
+'</div>'+
+'</div>'+
+'</div>'+
+'</div>',
+
+  methods: {
+    getProduct: function(items,id){
+      
+      this.productitems=[];
+      for (let index = 0; index < items.length; index++) {
+
+        if(id === items[index].id)
+        this.productitems.push(items[index])
+      
+      }
+       
+  
+       
+  
+    },
+  }
+  })
+
+ 
+  //-------Show product slut-----------------------------
 
 var shoppingBag = new Vue({
   el: "#app",
@@ -233,7 +302,7 @@ var shoppingBag = new Vue({
 
 //============================================= Test att hide and show element!
 
-new Vue({
+var changePageMethod = new Vue({
   el: '#wrapper',
   data:{
     homepage: true,
@@ -241,9 +310,15 @@ new Vue({
     specific:false,
     payment: false,
   },
+  created(){
+    this.$root.$refs.changePageMethod = this;
+  },
+  updated(){
+    this.$root.$refs.changePageMethod = this;
+  },
 
   methods:{
-    changePage: function(text){
+    changePage: function(text,items,id){
 
       switch (text) {
         case 1:
@@ -276,6 +351,13 @@ new Vue({
               var url = "women's clothing"
               this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
               break;
+              case 5:
+                this.homepage = false;
+                this.clothpage = false;
+                this. specific = true;
+                this.payment = false;
+                this.$root.$refs.showproduct.getProduct(items,id)
+                break;
         default:
           break;
       }
