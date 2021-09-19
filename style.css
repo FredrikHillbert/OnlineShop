@@ -825,11 +825,12 @@ header .count {
 
 .detail .description {
   color: #7d7d7d;
-  font-size: 1rem;
+  font-size: 0.5rem;
 }
 
+
 .detail .price {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .quantity,
@@ -1289,8 +1290,8 @@ input[type='password']:focus {
     /* =========================================================Prodkter efter valt dropdown slut*/
 
     .shopitemImg{
-      width:250; 
-      height:200px; 
+      width:200; 
+      height:150px; 
       padding:5% ;
       transition: all .2s ease-in-out;
       cursor: pointer;
@@ -1308,7 +1309,12 @@ input[type='password']:focus {
       cursor: pointer;
 
     }
-  
+  a {
+    cursor: pointer;
+  }
+  button{
+    cursor: pointer;
+  }
   
   
     

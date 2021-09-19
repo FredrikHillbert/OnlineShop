@@ -9,71 +9,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
-    <link rel="shortcut icon" href="images/fav-icon.png"/>
     <link rel ="stylesheet" href="style.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<!--style----->
-
 </head>
 <body >
 <div id ="wrapper">  
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
-
 <div class="topnav" id="myTopnav">
-  <a style="cursor: pointer;" @click="changePage(1)" href="" class="active">Startsida</a>
+  <a @click="changePage(1)" href="" class="active">Startsida</a>
   <div class="dropdown">
-    <button class="dropbtn">Kläder 
+    <button style="cursor: pointer;" class="dropbtn">Kläder 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-     
-      <a style="cursor: pointer;" @click="changePage(3)">Herr</a>
-      <a style="cursor: pointer;" @click="changePage(4)">Dam</a>
-      <a style="cursor: pointer;" @click="changePage(2)">Smycken</a>
+      <a  @click="changePage(3)">Herr</a>
+      <a  @click="changePage(4)">Dam</a>
+      <a  @click="changePage(2)">Smycken</a>
     </div>
   </div>
  <div class="itemMeny" >
-    <a href="javascript:void(0);" class="testa search"> <i class="fas fa-search"></i></a>
-    <a href="" class="user"> <i class="far fa-user"></i></a>
-    <a href="#"><i class="fas fa-shopping-cart"> <span class="num-cart-product">0</span></i></a>
+    <a class="user"> <i class="far fa-user"></i></a>
+    <a @click="changePage(6)"><i class="fas fa-shopping-cart"> <span class="num-cart-product">0</span></i></a>
   </div>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
 <!-- /* ============================================¤ Meny slutat ¤============================================ */ -->
 
 <!-- /* ============================================¤ Produkter första sida ¤============================================ */ -->
-
-
 <div v-show="homepage" class="row" >
    <showdata></showdata>
 </div>  
+<!-- /* ============================================¤ Produkter första sida slut  ¤============================================ */ -->
 
-<!-- /* ============================================¤ produkter första sida slut  ¤============================================ */ -->
 
 <!-- /* ============================================¤ produkter efter valt dropdown  ¤============================================ */ -->
-
 <div v-show="clothpage" class="row">
   <showitems ref="showProduct()"></showitems>
 </div>
-
 <!-- /* ============================================¤ produkter efter valt dropdown slutar ¤============================================ */ -->
 
-<!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 
+<!-- /* ============================================¤ Specifik artikel  ¤============================================ */ -->
 <div v-show="specific" class="content"> 
 <showproduct></showproduct>
 </div>
-   <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
-    <!-- /* ============================================¤ kundkorg  ¤============================================ */ -->
-    <div v-show="homepage" class="wrap">
+<!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
+
+
+
+
+    <div  class="wrap">
       <div id="accordian">
+        <div v-show="payment">
           <!-- /* ============================================¤ kundinformation  ¤============================================ */ -->
           <div class="step" id="step2">
               <div class="title">
                   <h1>Kund information</h1>
               </div>
           </div>
-         
               <form id="form" class="topBefore">
                   <input id="fname" type="text" placeholder="Förnamn">
                   <input id="lname" type="text" placeholder="Efternamn">
@@ -86,16 +78,16 @@
                   <input id="email" type="email" placeholder="E-MAIL">
                  <input id="submit" type="submit" value="Nästa">
         </form>
-         
           <!-- /* ============================================¤ kundinformation slutar  ¤============================================ */
+
+
+
           /* ============================================¤ Leverans  ¤============================================ */ -->
           <div class="step" id="step3">
               <div class="title">
                   <h1>Leveransalernativ</h1>
               </div>
-            
           </div>
-        
               <div class="container">
                   <form class="form cf">
                       <section class="plan cf">
@@ -103,37 +95,30 @@
                           <input type="radio" name="radio1" id="basic" value="basic" checked><label class="basic-label four col" for="basic">Hemleverans ( 59kr )</label>
                           <input type="radio" name="radio1" id="premium" value="premium"><label class="premium-label four col" for="premium">Expressleverans ( 99kr )</label>
                       </section>
-  
                   </form>
-              </div>
-             
-        
+              </div>         
           <!-- /* ============================================¤ Leverans slutar ¤============================================ */
+
+
+
           /* ============================================¤ Betalningsmetod  ¤============================================ */ -->
           <div class="step" id="step4">
               <div class="title">
                   <h1>Betalning</h1>
               </div>
-          </div>
-        
-              
+                 </div>
                   <div class="checkout-panel">
                       <div class="panel-body">
-                     
-                  
                         <div class="payment-method">
                           <label for="card" class="method card">
                             <div class="card-logos">
                               <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>
                               <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>
                             </div>
-                     
                             <div class="radio-input">
                               <input id="card" type="radio" name="payment">
-                              
                             </div>
                           </label>
-                     
                           <label for="paypal" class="method paypal">
                             <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>
                             <div class="radio-input">
@@ -145,152 +130,43 @@
                           <div class="column-1">
                             <label for="cardholder">Name</label>
                             <input type="text" id="cardholder" />
-                     
                             <div class="small-inputs">
                               <div>
                                 <label for="date">Valid date</label>
                                 <input type="text" id="date"/>
                               </div>
-                     
                               <div>
                                 <label for="verification">CVV / CVC *</label>
                                 <input type="password" id="verification"/>
                               </div>
                             </div>
-                     
                           </div>
                           <div class="column-2">
-                      
-                        
                             <label for="cardnumber">Card Number</label>
                             <input type="password" id="cardnumber"/>
-                     
-                          
                           </div>
                         </div>
                       </div>
               </div>
-         
+            </div>
           <!-- /* ============================================¤ Betalningsmetod slutar  ¤============================================ */
 
           /* ============================================¤ Granskning av beställning  ¤============================================ */ -->
+          <div v-show="shoppingBag">  
            <div class="step" id="step5">
               <div class="title">
                   <h1>Granska beställning</h1>
               </div>
           </div>
        
-          
 <div id="app">
 <showshoppingbag></showshoppingbag>
-  <!-- <header class="containerCart">
-
-    <span class="count">{{ itemCount }} produkter</span>
-  </header>
-
-  <section class="containerCart">
-    <div v-if="products.length > 0">
-      <ul class="productsCart">
-      <li class="row" v-for="(product, index) in products">
-        <div class="col left">
-          <div class="thumbnail">
-            <a href="#">
-              <img class="imgCart" :src="product.image" :alt="product.name" />
-            </a>
-          </div>
-          <div class="detail">
-            <div class="name"><a href="#">{{ product.name }}</a></div>
-            <div class="description">{{ product.description }}</div>
-            <div class="price">{{ product.price | currencyFormatted }}</div>
-          </div>
-        </div>
-        <div class="col right">
-          <div class="quantity">
-            <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />
-          </div>
-          <div class="removeItem">
-            <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
-          </div>
-        </div>
-      </li>
-    </ul>
-    </div>
-    <div v-else class="empty-product">
-      <h3>Det finns inga produkter i din kundkorg.</h3>
-      <button>Tillbaka till butik</button>
-    </div>
-  </section> -->
-  <!-- <section class="containerCart" v-if="products.length > 0">
-    <div class="promotion">
-      <label for="promo-code">Rabattkod?</label>
-      <input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>
-    </div>
-    <div class="summaryCheckOut">
-      <ul>
-        <li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>
-        <li>Leverans: <span>{{ subTotal | currencyFormatted }}</span></li>
-        <li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>
-        <li>Momskostnad: <span>{{ tax | currencyFormatted }}</span></li>
-        <li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>
-      </ul>
-    </div>
-    <div class="checkout">
-      <button type="button">Slutför beställning</button>
-    </div>
-  </section> -->
-</div>    
+</div>  
+</div>  
 </div>    
 </div>     
 <!-- /* ============================================¤ Granskning av beställning slutar  ¤============================================ */    -->
-
-<!-- /* ============================================¤ kundkorg slutar  ¤============================================ */ -->
-
-
 </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- <!--search-bar----------------------------------->
- <div class="search-bar">
-    
-    <!--search-input------->
-    <div class="search-input">
-    <input type="text" placeholder="Search For Product" name="search" />
-    <!--cancel-btn--->
-    <a href="javascript:void(0);" class="search-cancel">
-        <i class="fas fa-times"></i>
-    </a>
-
-</div>
-</div>
-<!--------------serarch bar ends ------------------------------------------>
-
-
-
 
 <!--------------footer ------------------------------------------>
 <footer>
@@ -330,11 +206,6 @@
   </div>
  </footer>
 </body>
-<!--using app.js-->
-
 <script src="app.js"></script>
- <!--using FontAwesome--------------->
  <script crossorigin="anonymous" src="https://kit.fontawesome.com/c8e4d183c2.js"></script>
-   <!--using JQuery--------------->
-
 </html>

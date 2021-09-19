@@ -1,11 +1,3 @@
-  /*-----For Search Bar-----------------------------*/
-  $(document).on('click','.search',function(){
-    $('.search-bar').addClass('search-bar-active')
-});
-
-$(document).on('click','.search-cancel',function(){
-    $('.search-bar').removeClass('search-bar-active')
-});
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 function myFunction() {
@@ -16,11 +8,12 @@ function myFunction() {
     x.className = "topnav";
   }
 }
-//---------------------------------------------------------------Vue cart
+
+//===================================================================### Vue ###===================================================================//
 currentShoppingBag = new Array();
 
 
-
+//===================================================================¤¤ Component/tamplet Homepage ¤¤===================================================================//
 
 Vue.component('showdata', {
 created(){
@@ -36,8 +29,7 @@ template: '<div>' +
 '<img :src = "item.image" class="shopping-item-image">'+
 '<div class="shopping-content">'+
 '<h2 class="shopping-item-title">{{ item.title }}</h2>'+
-
-'<p class="shopping-item-price">{{ item.price }}kr</p>'+
+'<p class="shopping-item-price">{{ item.price}}$</p>'+
 '<button class="shopping-item-add">Lägg i kundkorg</button>'+
 '</div></div></div>'
 ,
@@ -57,7 +49,9 @@ methods: {
 }
 
 })
+//===================================================================¤¤ Component/tamplet Homepage ends here ¤¤===================================================================//
 
+//===================================================================¤¤ Component/tamplet Products in store ¤¤===================================================================//
 
 
 Vue.component('showitems', {
@@ -85,7 +79,7 @@ template:
 '<img :src = "item.image" class="shopitemImg">'+
 '</a>'+
 '<h4>{{ item.title }}</h4>'+
-'<p >{{ item.price }} kr</p>'+
+'<p >{{ item.price }}$</p>'+
 '</div>'+
 '</div>'+
 '</div>'
@@ -107,11 +101,13 @@ methods: {
   showProduct: function(items,id){
     
     this.$root.$refs.changePageMethod.changePage(5,items,id);
-  },
-  
+  }, 
 }
-
 })
+//===================================================================¤¤ Component/tamplet Products in store ends here ¤¤===================================================================//
+
+
+//===================================================================¤¤ Component/tamplet specific product and information ¤¤===================================================================//
 
 Vue.component('showproduct', {
 
@@ -139,7 +135,7 @@ Vue.component('showproduct', {
   '<div class="recipes_header_summary">'+
   '<div class="flex-horiz-container">'+
   '<div class="selector">'+
-  '<h3>Pris<h4>{{ item.price}} kr</h4></h3>'+
+  '<h3>Pris {{ item.price}}$</h3>'+
   '<p>Välj storlek</p>'+
   '<select id="select">'+
   '<option value="0">XS</option>'+
@@ -170,22 +166,25 @@ Vue.component('showproduct', {
       addProductToShoppingBag: function(items, id){
         currentShoppingBag.push(items[0])
       }
-
     },
    
   });
-//-------Show product slut-----------------------------
+//=======================================================¤¤ Component/tamplet specific product and information ends here ¤¤===================================================================//
 
 
-
+//===================================================================¤¤ Component/tamplet items in shoppingBag ¤¤===================================================================//
 Vue.component('showshoppingbag', {
-
+  created(){
+    this.$root.$refs.showshoppingbag = this;
+  },
+  updated(){
+    this.$root.$refs.showshoppingbag = this;
+  },
   data: function(){
     return{
       shoppingBag: []
     }
   },
-
 template:
 '<div>'+
 '<section class="containerCart">'+
@@ -200,8 +199,7 @@ template:
 '</div>'+
 '<div class="detail">'+
 '<div class="name"><a href="#">{{ product.title }}</a></div>'+
-'<div class="description">{{ product.description }}</div>'+
-'<div class="price">{{ product.price }}</div>'+
+'<div class="price">{{ product.price}}$</div>'+
 '</div>'+
 '</div>'+
 '<div class="col right">'+
@@ -222,18 +220,26 @@ template:
 '</section>'+
 '</div>'
 ,
-
-
 methods: {
   getShoppingBag: function(){
+    this.shoppingBag= [];
     for (let index = 0; index < currentShoppingBag.length; index++) {
+     //Inte lägga till dubbel
       this.shoppingBag.push(currentShoppingBag[index])
     }
   }
-}
+},
+removeItem: function(){
+ 
+},
+updateItem: function(){
+  
+},
+
+
 })
 
-
+//===================================================================¤¤ Component/tamplet items in shoppingBag ends here ¤¤===================================================================//
 
 // var shoppingBag = new Vue({
 //   el: "#app",
@@ -354,7 +360,7 @@ methods: {
 //   }
 // });
 
-//============================================= Test att hide and show element!
+//===================================================================¤¤ Fuction to show diffrent templet ¤¤===================================================================//
 
 var changePageMethod = new Vue({
   el: '#wrapper',
@@ -363,6 +369,7 @@ var changePageMethod = new Vue({
     clothpage: false,
     specific:false,
     payment: false,
+    shoppingBag: false,
   },
   created(){
     this.$root.$refs.changePageMethod = this;
@@ -380,38 +387,51 @@ var changePageMethod = new Vue({
           this.clothpage = false;
           this. specific = false;
           this.payment = false;
-          break;
+          this.shoppingBag = false;
+           break;
         case 2:
           this.homepage = false;
           this.clothpage = true;
-          this. specific = false;
+          this.specific = false;
           this.payment = false;
+          this.shoppingBag = false;
           var url = "men's clothing"
           this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
           break;
           case 3:
             this.homepage = false;
             this.clothpage = true;
-            this. specific = false;
+            this.specific = false;
             this.payment = false;
+            this.shoppingBag = false;
             var url = "men's clothing"
             this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
             break;
             case 4:
               this.homepage = false;
               this.clothpage = true;
-              this. specific = false;
+              this.specific = false;
               this.payment = false;
+              this.shoppingBag = false;
               var url = "women's clothing"
               this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
               break;
               case 5:
                 this.homepage = false;
                 this.clothpage = false;
-                this. specific = true;
+                this.specific = true;
                 this.payment = false;
+                this.shoppingBag = false;
                 this.$root.$refs.showproduct.getProduct(items,id)
                 break;
+                case 6:
+                  this.homepage = false;
+                  this.clothpage = false;
+                  this.specific = false;
+                  this.payment = false;
+                  this.shoppingBag = true;
+                  this.$root.$refs.showshoppingbag.getShoppingBag();
+                  break;  
         default:
           break;
       }
@@ -422,4 +442,4 @@ var changePageMethod = new Vue({
 })
  
   
- //============================================= Test att hide and show element slut
+//===================================================================¤¤ Fuction to show diffrent templet ends here ¤¤===================================================================//
