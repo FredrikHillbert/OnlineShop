@@ -173,58 +173,9 @@ body{
     align-items: center;
     font-weight: 400;
 }
-/* ALL ABOVE CSS IS FOR THE HEADER -----------------------------------------------*/
 
-.search-bar{
-    width:100%;
-    height: 300px;
-    background-color: #ffffff;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 2px -5px 30px rgba(0,0,0,0.1);
-    z-index: 101;
-    animation: search 0.3s;
-}
-.search-input{
-    width:90%;
-    border-bottom: 2px solid #555555;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-top: 20px;
-}
-.search-bar input{
-    width:100%;
-    padding: 30px;
-    border: none;
-    outline: none;
-    font-size: 2rem;
-    margin: 20px;
-    padding: 0px 20px;
-}
-.search-cancel{
-    color: #272727;
-    font-size: 2rem;
-    padding-right: 40px;
-}
-.search-bar{
-    display: none;
-}
-.search-bar-active{
-    display: flex;
-}
-@keyframes search{
-    0%{
-        bottom: -300px;
-    }
-    100%{
-        bottom: 0px;
-    }
-}
+
+
 
 
   
@@ -265,13 +216,7 @@ body{
 } 
 
 .shopping-item-image{
-  /* width: 100%;
   
-  padding: 2%;
-  height: 500px;
-  max-height: 500px;
-  object-fit:cover; */
-
   max-width: 100%;
   vertical-align: middle;
   border-radius: 4px;
@@ -718,32 +663,29 @@ a:hover {
 }
 
 .checkout button {
-  background-color: #eaf1ea;
-  border: 1px solid #b3b3b3;
-  color: #3f3e3e;
-  transition: all 0.25s linear;
-  cursor: pointer;
+  width: 100%;
+  padding: 2%;
+  background-color: #ffffffb6;
+  color: #313131cb;
+  border: none;
+  text-align: right;
+  font-weight: bold;
+  font-size: 30px;
+
 }
 
-.checkout::after {
-  position: relative;
-  right: 0;
-  content: " \276f";
-  transition: all 0.15s linear;
+.checkout i:hover {
+  color: #5e5a5aa9;
+ 
+  
 }
-
-.checkout:hover {
-  background-color: #cccccc;
+.checkout span:hover {
+  color: #5e5a5aa9;
+ 
   
 }
 
-.checkout:hover::after {
-  right: -2px;
-}
 
-.checkout:focus {
-  outline: none;
-}
 
 ul {
   padding: 0;
@@ -1325,6 +1267,74 @@ input[type='password']:focus {
   button{
     cursor: pointer;
   }
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  
+  
+  
+  /* Column container */
+  .row1 {  
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+  }
+  
+  /* Create two unequal columns that sits next to each other */
+  /* Sidebar/left column */
+  .side {
+    -ms-flex: 20%; /* IE10 */
+    flex: 20%;
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  .side li {
+    width: 100%;
+    font-size:1vw;
+    padding: 2%;
+    margin: 2%;
+    background-color: #f0e8e859;
+    text-align: center;
+    font-weight: bold;
+  }  
+  
+  /* Main column */
+  .main1 {   
+    -ms-flex: 80%; /* IE10 */
+    flex: 80%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  /* Fake image, just for this example */
+  .fakeimg2 {
+   background-image: url(/Logo.PNG);
+    width: 100%;
+    height: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  
+  
+  /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 700px) {
+    .row1 {   
+      flex-direction: column;
+    }
+    .side li {
+     
+      font-size:3vw;
+     
+    } 
+  }
+  
+    
+  
   
   
     

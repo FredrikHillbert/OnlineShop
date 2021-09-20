@@ -15,15 +15,16 @@
 <div id ="wrapper">  
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
 <div class="topnav" id="myTopnav">
-  <a @click="changePage(1)" class="active">Startsida</a>
+  <a @click="changePage(1)" class="active">Home</a>
   <div class="dropdown">
-    <button style="cursor: pointer;" class="dropbtn">Kläder 
+    <button style="cursor: pointer;" class="dropbtn">
+      Clothes 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <a  @click="changePage(3)">Herr</a>
-      <a  @click="changePage(4)">Dam</a>
-      <a  @click="changePage(2)">Smycken</a>
+      <a  @click="changePage(3)">Men's clothing</a>
+      <a  @click="changePage(4)">Women's clothing</a>
+      <a  @click="changePage(2)">Jewelery</a>
     </div>
   </div>
  <div class="itemMeny" >
@@ -35,9 +36,24 @@
 <!-- /* ============================================¤ Meny slutat ¤============================================ */ -->
 
 <!-- /* ============================================¤ Produkter första sida ¤============================================ */ -->
-<div v-show="homepage" class="row" >
-   <showdata></showdata>
-</div>  
+
+<div v-show="homepage" class="row1">
+  <div class="side">
+    <div class="fakeimg2"></div>
+    <H3 style="text-align: center; font-weight: bold; color: rgb(163, 165, 165);">Welcome to the Perwear online store with a large selection of clothing and jewelry, Fast shipping and 30 days open purchase!</h3>
+    <ul>
+    <li> <a  @click="changePage(3)">Men's clothing <i class="fas fa-arrow-circle-right"></i></a> </i></li>
+   <li> <a  @click="changePage(4)">Women's clothing <i class="fas fa-arrow-circle-right"></i></a></li>
+   <li> <a  @click="changePage(2)">Jewelery  <i class="fas fa-arrow-circle-right"></i></a></li>
+    </ul>
+  </div>
+  <div class="main1">
+    <div  class="row" >
+       <showdata></showdata>
+    </div>  
+    
+  </div>
+</div>
 <!-- /* ============================================¤ Produkter första sida slut  ¤============================================ */ -->
 
 
@@ -69,7 +85,7 @@
           <div v-show="shoppingBag">  
            <div class="step" id="step5">
               <div class="title">
-                  <h1>Granska beställning</h1>
+                  <h1>Order</h1>
               </div>
           </div>
        

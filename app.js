@@ -33,7 +33,7 @@ template: '<div>' +
 '<div class="shopping-content">'+
 '<h2 class="shopping-item-title">{{ item.title }}</h2>'+
 '<p class="shopping-item-price">{{ item.price}}$</p>'+
-'<button class="shopping-item-add" @click="addProductToShoppingBag(shop, item.id)">Lägg i kundkorg</button>'+
+'<button class="shopping-item-add" @click="addProductToShoppingBag(shop, item.id)">Add to cart</button>'+
 '</div></div></div>'
 ,
 
@@ -154,7 +154,7 @@ Vue.component('showproduct', {
   ' <option value="4">XL</option>'+
    '</select>'+     
   ' </div>'+
- '<p><button @click="addProductToShoppingBag(productitems, item.id)">Lägg i kundkorg</button></p>'+
+ '<p><button @click="addProductToShoppingBag(productitems, item.id)">Add to cart</button></p>'+
 '</div>'+
 '</div>'+
 '</div>'+
@@ -227,16 +227,15 @@ Vue.component('showshoppingbag', {
     
           return count;
         },
-        subTotal: function(value) {
+        subTotal: function() {
           var subTotal = 0;
-          shippingCost = value;
-          subTotal += shippingCost;
+        this.shippingCost
          
           for (var i = 0; i < this.shoppingBag.length; i++) {
             subTotal +=  this.shoppingBag[i].price;
           }
     
-          return subTotal;
+          return subTotal = subTotal+parseInt(this.shippingCost) || 0;
         },
         discountPrice: function() {
           return this.subTotal * this.discount / 100;
@@ -282,14 +281,14 @@ template:
 '</ul>'+
 '</div>'+
 '<div v-else class="empty-product">'+
-'<h3>Det finns inga produkter i din kundkorg.</h3>'+
-'<button  @click="homepage()">Tillbaka till butik</button>'+
+'<h3>There are no products in your shopping cart</h3>'+
+'<button  @click="homepage()"><i class="fas fa-arrow-circle-left"></i></button>'+
 '</div>'+
 '</section>'+
 '<section class="containerCart" v-if="shoppingBag.length > 0">'+
 '<div class="promotion" v-if="payment">'+
-'<label for="promo-code">Rabattkod?</label>'+
-'<input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>'+
+'<label for="promo-code">Discount?</label>'+
+'<input placeholder="Discount code" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>'+
 '</div>'+
 '<div class="summaryCheckOut">'+
 '<ul>'+
@@ -302,10 +301,10 @@ template:
 '</div>'+
 '<div class="checkout">'+
 '<div v-if="!payment">'+
-    '<button @click="paymentpage" type="button">Vidare till betalning</button>'+
+'<button @click="paymentpage" type="button"><i class="fas fa-arrow-circle-right"></i></button>'+
 '</div>'+
 '<div v-else>'+
-'<button @click="paymentsuccess" type="button">Betala</button>'+
+'<button @click="paymentsuccess" type="button"><span>Pay <i class="fas fa-arrow-circle-right"></i></span></button>'+
 '</div>'+
 '</div>'+
 '</section>'+
@@ -333,6 +332,12 @@ methods: {
     this.payment = false;
     alert("Din beställning är lagd!") /// FIXA SIDA FÖR DETTA!
   },
+  getShippingPrice: function(value)
+  {
+    this.shippingCost = value;
+
+  },
+  
 
 updateQuantity: function(index, event) {
         var product = this.shoppingBag[index];
@@ -398,38 +403,37 @@ template:
  '<div>'+
 '<div class="step" id="step2">'+
 '<div class="title">'+
-'<h1>Kund information</h1>'+
+'<h1>Customer information</h1>'+
 '</div>'+
 '</div>'+
 '<form id="form" class="topBefore">'+
-'<input id="fname" type="text" placeholder="Förnamn">'+
-'<input id="lname" type="text" placeholder="Efternamn">'+
-'<input id="phone" type="tel" placeholder="Telefon">'+
-'<input id="company" type="text" placeholder="Företag">'+
+'<input id="fname" type="text" placeholder="Name">'+
+'<input id="lname" type="text" placeholder="Lastname">'+
+'<input id="phone" type="tel" placeholder="Phone">'+
+'<input id="company" type="text" placeholder="Company">'+
 ' <input id="adres" type="text" placeholder="Adress">'+
-' <input id="city" type="text" placeholder="Stad">'+
-'<input id="zipCode" type="text" placeholder="Postnummer">'+
-'<input id="country" type="text" placeholder="Land">'+
+' <input id="city" type="text" placeholder="City">'+
+'<input id="zipCode" type="text" placeholder="Zipe-code">'+
+'<input id="country" type="text" placeholder="Country">'+
 '<input id="email" type="email" placeholder="E-MAIL">'+
-'<input id="submit" type="submit" value="Nästa">'+
 '</form>'+
 '<div class="step" id="step3">'+
 ' <div class="title">'+
-' <h1>Leveransalernativ</h1>'+
+' <h1>Shipping</h1>'+
 '</div>'+
 '</div>'+
 ' <div class="container">'+
 ' <form class="form cf">'+
 '<section class="plan cf" >'+
-'<input type="radio" name="radio1" id="free" value="0" v-model="shippingValue" @change="shippingFunction"><label class="free-label four col" for="free">Hämta i butik ( FREE )</label>'+
-' <input type="radio" name="radio1" id="basic" value="5.99" checked><label class="basic-label four col" for="basic">Hemleverans ( 5.99$ )</label>'+
-'<input type="radio" name="radio1" id="premium" value="9.99"><label class="premium-label four col" for="premium">Expressleverans ( 9.99$ )</label>'+
+'<input type="radio" name="radio1" id="free" value="0"  checked @change="shippingFunction($event)"><label class="free-label four col" for="free">Pick up ( FREE )</label>'+
+' <input type="radio" name="radio1" id="basic" value="5.99" @change="shippingFunction($event)"><label class="basic-label four col" for="basic">Basic ( 5.99$ )</label>'+
+'<input type="radio" name="radio1" id="premium" value="9.99" @change="shippingFunction($event)"><label class="premium-label four col" for="premium">Premium ( 9.99$ )</label>'+
 ' </section>'+
 '</form>'+
 '    </div>  '+
 '<div class="step" id="step4">'+
 '<div class="title">'+
-'    <h1>Betalning</h1>'+
+'    <h1>Payment</h1>'+
 ' </div>'+
 '  </div>'+
 ' <div class="checkout-panel">'+
@@ -477,9 +481,9 @@ template:
 ,
 
 methods:{
-  shippingFunction: function(){
-    
-    this.$root.$refs.showshoppingbag.subTotal(shippingValue)
+  shippingFunction: function(event){
+    var data = event.target.value;
+    this.$root.$refs.showshoppingbag.getShippingPrice(data);
 
      }
 
@@ -579,6 +583,7 @@ var changePageMethod = new Vue({
                   this.specific = false;
                   this.payment = true;
                   this.shoppingBag = true;
+                  window.scrollTo(0,0);
                   break;  
         default:
           break;
