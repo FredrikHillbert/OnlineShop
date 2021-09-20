@@ -9,8 +9,11 @@ function myFunction() {
   }
 }
 
+
 //===================================================================### Vue ###===================================================================//
 currentShoppingBag = new Array();
+
+
 
 
 //===================================================================¤¤ Component/tamplet Homepage ¤¤===================================================================//
@@ -30,7 +33,7 @@ template: '<div>' +
 '<div class="shopping-content">'+
 '<h2 class="shopping-item-title">{{ item.title }}</h2>'+
 '<p class="shopping-item-price">{{ item.price}}$</p>'+
-'<button class="shopping-item-add">Lägg i kundkorg</button>'+
+'<button class="shopping-item-add" @click="addProductToShoppingBag(shop, item.id)">Lägg i kundkorg</button>'+
 '</div></div></div>'
 ,
 
@@ -45,7 +48,12 @@ methods: {
      
       
     })
-  }
+  },
+  addProductToShoppingBag: function(items, id){
+    
+    currentShoppingBag.push(items[id-1])
+    this.$root.$refs.changePageMethod.updateCart();
+  },
 }
 
 })
@@ -122,6 +130,7 @@ Vue.component('showproduct', {
   data: function(){
     return {
       productitems:[],
+    
     }
   },
   
@@ -165,8 +174,11 @@ Vue.component('showproduct', {
 
       addProductToShoppingBag: function(items, id){
         currentShoppingBag.push(items[0])
+        this.$root.$refs.changePageMethod.updateCart();
       }
     },
+   
+    
    
   });
 //=======================================================¤¤ Component/tamplet specific product and information ends here ¤¤===================================================================//
@@ -182,9 +194,61 @@ Vue.component('showshoppingbag', {
   },
   data: function(){
     return{
-      shoppingBag: []
-    }
+      shoppingBag: [],
+       tax: 0.25,
+          promotions: [
+            {
+              code: "SUMMER",
+              discount: "50%"
+            },
+            {
+              code: "AUTUMN",
+              discount: "40%"
+            },
+            {
+              code: "WINTER",
+              discount: "30%"
+            }
+          ],
+          promoCode: "",
+          discount: 0
+        }
+    
   },
+  computed: {
+        itemCount: function() {
+          var count = 0;
+    
+          for (var i = 0; i < this.shoppingBag.length; i++) {
+            count += parseInt(this.shoppingBag[i].quantity) || 0;
+          }
+    
+          return count;
+        },
+        subTotal: function() {
+          var subTotal = 0;
+    
+          for (var i = 0; i < this.shoppingBag.length; i++) {
+            subTotal +=  this.shoppingBag[i].price;
+          }
+    
+          return subTotal;
+        },
+        discountPrice: function() {
+          return this.subTotal * this.discount / 100;
+        },
+        totalPrice: function() {
+          return this.subTotal - this.discountPrice ;
+        }
+      },
+      filters: {
+        currencyFormatted: function(value) {
+          return Number(value).toLocaleString("US", {
+            style: "currency",
+            currency: "usd"
+          });
+        }
+      },
 template:
 '<div>'+
 '<section class="containerCart">'+
@@ -215,150 +279,84 @@ template:
 '</div>'+
 '<div v-else class="empty-product">'+
 '<h3>Det finns inga produkter i din kundkorg.</h3>'+
-'<button>Tillbaka till butik</button>'+
+'<button  @click="homepage()">Tillbaka till butik</button>'+
+'</div>'+
+'</section>'+
+'<section class="containerCart" v-if="shoppingBag.length > 0">'+
+'<div class="promotion">'+
+'<label for="promo-code">Rabattkod?</label>'+
+'<input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>'+
+'</div>'+
+'<div class="summaryCheckOut">'+
+'<ul>'+
+'<li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>'+
+'<li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>'+
+'<li>Momskostnad: <span>{{ tax*totalPrice  | currencyFormatted }}</span></li>'+
+'<li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>'+
+'</ul>'+
+'</div>'+
+'<div class="checkout">'+
+'<button type="button">Vidare till betalning</button>'+
 '</div>'+
 '</section>'+
 '</div>'
 ,
 methods: {
   getShoppingBag: function(){
+    console.log(currentShoppingBag)
     this.shoppingBag= [];
     for (let index = 0; index < currentShoppingBag.length; index++) {
      //Inte lägga till dubbel
       this.shoppingBag.push(currentShoppingBag[index])
     }
-  }
-},
-removeItem: function(){
+  },
+  homepage: function(){
+    this.$root.$refs.changePageMethod.changePage(1)
+  },
  
-},
-updateItem: function(){
+
+updateQuantity: function(index, event) {
+        var product = this.shoppingBag[index];
+        var value = event.target.value;
+        var valueInt = parseInt(value);
   
-},
-
-
+        // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
+        if (value === "") {
+          product.quantity = value;
+        } else if (valueInt > 0 && valueInt < 100) {
+          product.quantity = valueInt;
+        }
+  
+        this.$set(this.shoppingBag, index, product);
+      },
+      checkQuantity: function(index, event) {
+        // Update quantity to 1 if it is empty
+        if (event.target.value === "") {
+          var product = this.shoppingBag[index];
+          product.quantity = 1;
+          this.$set(this.shoppingBag, index, product);
+        }
+      },
+      removeItem: function(index) {
+      
+        this.shoppingBag.splice(index, 1);
+        currentShoppingBag = this.shoppingBag;
+        this.$root.$refs.changePageMethod.updateCart();
+      },
+      checkPromoCode: function() {
+        for (var i = 0; i < this.promotions.length; i++) {
+          if (this.promoCode === this.promotions[i].code) {
+            this.discount = parseFloat(
+              this.promotions[i].discount.replace("%", "")
+            );
+            return;
+          }
+        }
+  
+        alert("Sorry, the Promotional code you entered is not valid!");
+      }
+    },
 })
-
-//===================================================================¤¤ Component/tamplet items in shoppingBag ends here ¤¤===================================================================//
-
-// var shoppingBag = new Vue({
-//   el: "#app",
-//   data: {
-//     products: [
-//       {
-//         image: "https://via.placeholder.com/200x150",
-//         name: "Produkt",
-//         description: "Beskrivning produkt",
-//         price: 299,
-//         quantity: 2
-//       },
-//       {
-//         image: "https://via.placeholder.com/200x150",
-//         name: "Produkt",
-//         description: "Beskrivning produkt",
-//         price: 446,
-//         quantity: 1
-//       },
-//       {
-//           image: "https://via.placeholder.com/200x150",
-//           name: "Produkt",
-//           description: "Beskrivning produkt",
-//           price: 169,
-//           quantity: 1
-//         }
-//     ],
-//     tax: 5,
-//     promotions: [
-//       {
-//         code: "SUMMER",
-//         discount: "50%"
-//       },
-//       {
-//         code: "AUTUMN",
-//         discount: "40%"
-//       },
-//       {
-//         code: "WINTER",
-//         discount: "30%"
-//       }
-//     ],
-//     promoCode: "",
-//     discount: 0
-//   },
-//   computed: {
-//     itemCount: function() {
-//       var count = 0;
-
-//       for (var i = 0; i < this.products.length; i++) {
-//         count += parseInt(this.products[i].quantity) || 0;
-//       }
-
-//       return count;
-//     },
-//     subTotal: function() {
-//       var subTotal = 0;
-
-//       for (var i = 0; i < this.products.length; i++) {
-//         subTotal += this.products[i].quantity * this.products[i].price;
-//       }
-
-//       return subTotal;
-//     },
-//     discountPrice: function() {
-//       return this.subTotal * this.discount / 100;
-//     },
-//     totalPrice: function() {
-//       return this.subTotal - this.discountPrice + this.tax;
-//     }
-//   },
-//   filters: {
-//     currencyFormatted: function(value) {
-//       return Number(value).toLocaleString("sv", {
-//         style: "currency",
-//         currency: "SEK"
-//       });
-//     }
-//   },
-//   methods: {
-//     updateQuantity: function(index, event) {
-//       var product = this.products[index];
-//       var value = event.target.value;
-//       var valueInt = parseInt(value);
-
-//       // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
-//       if (value === "") {
-//         product.quantity = value;
-//       } else if (valueInt > 0 && valueInt < 100) {
-//         product.quantity = valueInt;
-//       }
-
-//       this.$set(this.products, index, product);
-//     },
-//     checkQuantity: function(index, event) {
-//       // Update quantity to 1 if it is empty
-//       if (event.target.value === "") {
-//         var product = this.products[index];
-//         product.quantity = 1;
-//         this.$set(this.products, index, product);
-//       }
-//     },
-//     removeItem: function(index) {
-//       this.products.splice(index, 1);
-//     },
-//     checkPromoCode: function() {
-//       for (var i = 0; i < this.promotions.length; i++) {
-//         if (this.promoCode === this.promotions[i].code) {
-//           this.discount = parseFloat(
-//             this.promotions[i].discount.replace("%", "")
-//           );
-//           return;
-//         }
-//       }
-
-//       alert("Sorry, the Promotional code you entered is not valid!");
-//     }
-//   }
-// });
 
 //===================================================================¤¤ Fuction to show diffrent templet ¤¤===================================================================//
 
@@ -370,6 +368,7 @@ var changePageMethod = new Vue({
     specific:false,
     payment: false,
     shoppingBag: false,
+    numCartProduct: 0,
   },
   created(){
     this.$root.$refs.changePageMethod = this;
@@ -380,14 +379,17 @@ var changePageMethod = new Vue({
 
   methods:{
     changePage: function(text,items,id){
-
+      
+  
       switch (text) {
         case 1:
+          
           this.homepage = true;
           this.clothpage = false;
-          this. specific = false;
+          this.specific = false;
           this.payment = false;
           this.shoppingBag = false;
+          console.log(currentShoppingBag);
            break;
         case 2:
           this.homepage = false;
@@ -437,7 +439,14 @@ var changePageMethod = new Vue({
       }
 
 
-    }
+    },
+     updateCart: function(){
+     
+      this.numCartProduct = currentShoppingBag.length;
+      
+      
+      
+      }
   }
 })
  

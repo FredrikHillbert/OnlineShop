@@ -15,7 +15,7 @@
 <div id ="wrapper">  
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
 <div class="topnav" id="myTopnav">
-  <a @click="changePage(1)" href="" class="active">Startsida</a>
+  <a @click="changePage(1)" class="active">Startsida</a>
   <div class="dropdown">
     <button style="cursor: pointer;" class="dropbtn">Kläder 
       <i class="fa fa-caret-down"></i>
@@ -28,7 +28,7 @@
   </div>
  <div class="itemMeny" >
     <a class="user"> <i class="far fa-user"></i></a>
-    <a @click="changePage(6)"><i class="fas fa-shopping-cart"> <span class="num-cart-product">0</span></i></a>
+    <a @click="changePage(6)"><i class="fas fa-shopping-cart"> <span class="num-cart-product">{{numCartProduct}}</span></i></a>
   </div>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 </div>
