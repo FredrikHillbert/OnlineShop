@@ -194,6 +194,7 @@ Vue.component('showshoppingbag', {
   },
   data: function(){
     return{
+      payment: false,
       shoppingBag: [],
        tax: 0.25,
           promotions: [
@@ -211,7 +212,8 @@ Vue.component('showshoppingbag', {
             }
           ],
           promoCode: "",
-          discount: 0
+          discount: 0,
+          shippingCost: 0
         }
     
   },
@@ -225,9 +227,11 @@ Vue.component('showshoppingbag', {
     
           return count;
         },
-        subTotal: function() {
+        subTotal: function(value) {
           var subTotal = 0;
-    
+          shippingCost = value;
+          subTotal += shippingCost;
+         
           for (var i = 0; i < this.shoppingBag.length; i++) {
             subTotal +=  this.shoppingBag[i].price;
           }
@@ -283,7 +287,7 @@ template:
 '</div>'+
 '</section>'+
 '<section class="containerCart" v-if="shoppingBag.length > 0">'+
-'<div class="promotion">'+
+'<div class="promotion" v-if="payment">'+
 '<label for="promo-code">Rabattkod?</label>'+
 '<input placeholder="ange din rabbatkod" type="text" id="promo-code" v-model="promoCode" /> <button type="button" @click="checkPromoCode"></button>'+
 '</div>'+
@@ -291,19 +295,24 @@ template:
 '<ul>'+
 '<li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>'+
 '<li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>'+
+'<li v-if="payment">Shipping Cost: <span> {{ shippingCost | currencyFormatted }} </span> </li>'+
 '<li>Momskostnad: <span>{{ tax*totalPrice  | currencyFormatted }}</span></li>'+
 '<li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>'+
 '</ul>'+
 '</div>'+
 '<div class="checkout">'+
-'<button @click="paymentpage" type="button">Vidare till betalning</button>'+
+'<div v-if="!payment">'+
+    '<button @click="paymentpage" type="button">Vidare till betalning</button>'+
+'</div>'+
+'<div v-else>'+
+'<button @click="paymentsuccess" type="button">Betala</button>'+
+'</div>'+
 '</div>'+
 '</section>'+
 '</div>'
 ,
 methods: {
   getShoppingBag: function(){
-    console.log(currentShoppingBag)
     this.shoppingBag= [];
     for (let index = 0; index < currentShoppingBag.length; index++) {
      //Inte lägga till dubbel
@@ -311,19 +320,26 @@ methods: {
     }
   },
   homepage: function(){
+    this.payment = false;
     this.$root.$refs.changePageMethod.changePage(1)
   },
   paymentpage: function(){
+    
+    this.payment = true;
     this.$root.$refs.changePageMethod.changePage(7)
   },
- 
+  paymentsuccess: function(){
+    
+    this.payment = false;
+    alert("Din beställning är lagd!") /// FIXA SIDA FÖR DETTA!
+  },
 
 updateQuantity: function(index, event) {
         var product = this.shoppingBag[index];
         var value = event.target.value;
         var valueInt = parseInt(value);
   
-        // Minimum quantity is 1, maximum quantity is 100, can left blank to input easily
+        
         if (value === "") {
           product.quantity = value;
         } else if (valueInt > 0 && valueInt < 100) {
@@ -363,6 +379,126 @@ updateQuantity: function(index, event) {
 
 //===================================================================¤¤ Fuction to show diffrent templet ¤¤===================================================================//
 
+Vue.component('showpaymentstyle', {
+
+  created(){
+    this.$root.$refs.showpaymentstyle = this;
+  },
+  updated(){
+    this.$root.$refs.showpaymentstyle = this;
+  },
+  data: function(){
+    return{
+          shippingValue: "",
+        }
+    
+  },
+
+template:
+ '<div>'+
+'<div class="step" id="step2">'+
+'<div class="title">'+
+'<h1>Kund information</h1>'+
+'</div>'+
+'</div>'+
+'<form id="form" class="topBefore">'+
+'<input id="fname" type="text" placeholder="Förnamn">'+
+'<input id="lname" type="text" placeholder="Efternamn">'+
+'<input id="phone" type="tel" placeholder="Telefon">'+
+'<input id="company" type="text" placeholder="Företag">'+
+' <input id="adres" type="text" placeholder="Adress">'+
+' <input id="city" type="text" placeholder="Stad">'+
+'<input id="zipCode" type="text" placeholder="Postnummer">'+
+'<input id="country" type="text" placeholder="Land">'+
+'<input id="email" type="email" placeholder="E-MAIL">'+
+'<input id="submit" type="submit" value="Nästa">'+
+'</form>'+
+'<div class="step" id="step3">'+
+' <div class="title">'+
+' <h1>Leveransalernativ</h1>'+
+'</div>'+
+'</div>'+
+' <div class="container">'+
+' <form class="form cf">'+
+'<section class="plan cf" >'+
+'<input type="radio" name="radio1" id="free" value="0" v-model="shippingValue" @change="shippingFunction"><label class="free-label four col" for="free">Hämta i butik ( FREE )</label>'+
+' <input type="radio" name="radio1" id="basic" value="5.99" checked><label class="basic-label four col" for="basic">Hemleverans ( 5.99$ )</label>'+
+'<input type="radio" name="radio1" id="premium" value="9.99"><label class="premium-label four col" for="premium">Expressleverans ( 9.99$ )</label>'+
+' </section>'+
+'</form>'+
+'    </div>  '+
+'<div class="step" id="step4">'+
+'<div class="title">'+
+'    <h1>Betalning</h1>'+
+' </div>'+
+'  </div>'+
+' <div class="checkout-panel">'+
+'<div class="panel-body">'+
+'<div class="payment-method">'+
+'<label for="card" class="method card">'+
+' <div class="card-logos">'+
+'<img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>'+
+' <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>'+
+' </div>'+
+'<div class="radio-input">'+
+'<input id="card" type="radio" name="payment">'+
+'</div>'+
+'</label>'+
+'<label for="paypal" class="method paypal">'+
+'<img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>'+
+' <div class="radio-input">'+
+'<input id="paypal" type="radio" name="payment">'+
+'</div>'+
+'</label>'+
+' </div>'+
+' <div class="input-fields">'+
+'<div class="column-1">'+
+'<label for="cardholder">Name</label>'+
+'<input type="text" id="cardholder" />'+
+'<div class="small-inputs">'+
+'<div>'+
+'<label for="date">Valid date</label>'+
+' <input type="text" id="date"/>'+
+'</div>'+
+'<div>'+
+'<label for="verification">CVV / CVC *</label>'+
+'<input type="password" id="verification"/>'+
+'  </div>'+
+' </div>'+
+'  </div>'+
+' <div class="column-2">'+
+'<label for="cardnumber">Card Number</label>'+
+' <input type="password" id="cardnumber"/>'+
+' </div>'+
+'</div>'+
+'</div>'+
+' </div>'+
+' </div>' 
+,
+
+methods:{
+  shippingFunction: function(){
+    
+    this.$root.$refs.showshoppingbag.subTotal(shippingValue)
+
+     }
+
+}
+
+ 
+})
+
+
+
+
+
+
+
+
+
+
+
+
 var changePageMethod = new Vue({
   el: '#wrapper',
   data:{
@@ -392,7 +528,7 @@ var changePageMethod = new Vue({
           this.specific = false;
           this.payment = false;
           this.shoppingBag = false;
-          console.log(currentShoppingBag);
+          
            break;
         case 2:
           this.homepage = false;
@@ -438,7 +574,6 @@ var changePageMethod = new Vue({
                   this.$root.$refs.showshoppingbag.getShoppingBag();
                   break;  
                   case 7:
-                  window.scrollTo(0, 0);
                   this.homepage = false;
                   this.clothpage = false;
                   this.specific = false;

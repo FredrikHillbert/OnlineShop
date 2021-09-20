@@ -60,94 +60,8 @@
     <div  class="wrap">
       <div id="accordian">
         <div v-show="payment">
-          <!-- /* ============================================¤ kundinformation  ¤============================================ */ -->
-          <div class="step" id="step2">
-              <div class="title">
-                  <h1>Kund information</h1>
-              </div>
-          </div>
-              <form id="form" class="topBefore">
-                  <input id="fname" type="text" placeholder="Förnamn">
-                  <input id="lname" type="text" placeholder="Efternamn">
-                  <input id="phone" type="tel" placeholder="Telefon">
-                  <input id="company" type="text" placeholder="Företag">
-                  <input id="adres" type="text" placeholder="Adress">
-                  <input id="city" type="text" placeholder="Stad">
-                  <input id="zipCode" type="text" placeholder="Postnummer">
-                  <input id="country" type="text" placeholder="Land">
-                  <input id="email" type="email" placeholder="E-MAIL">
-                 <input id="submit" type="submit" value="Nästa">
-        </form>
-          <!-- /* ============================================¤ kundinformation slutar  ¤============================================ */
-
-
-
-          /* ============================================¤ Leverans  ¤============================================ */ -->
-          <div class="step" id="step3">
-              <div class="title">
-                  <h1>Leveransalernativ</h1>
-              </div>
-          </div>
-              <div class="container">
-                  <form class="form cf">
-                      <section class="plan cf">
-                          <input type="radio" name="radio1" id="free" value="free"><label class="free-label four col" for="free">Hämta i butik ( 0kr )</label>
-                          <input type="radio" name="radio1" id="basic" value="basic" checked><label class="basic-label four col" for="basic">Hemleverans ( 59kr )</label>
-                          <input type="radio" name="radio1" id="premium" value="premium"><label class="premium-label four col" for="premium">Expressleverans ( 99kr )</label>
-                      </section>
-                  </form>
-              </div>         
-          <!-- /* ============================================¤ Leverans slutar ¤============================================ */
-
-
-
-          /* ============================================¤ Betalningsmetod  ¤============================================ */ -->
-          <div class="step" id="step4">
-              <div class="title">
-                  <h1>Betalning</h1>
-              </div>
-                 </div>
-                  <div class="checkout-panel">
-                      <div class="panel-body">
-                        <div class="payment-method">
-                          <label for="card" class="method card">
-                            <div class="card-logos">
-                              <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>
-                              <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>
-                            </div>
-                            <div class="radio-input">
-                              <input id="card" type="radio" name="payment">
-                            </div>
-                          </label>
-                          <label for="paypal" class="method paypal">
-                            <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>
-                            <div class="radio-input">
-                              <input id="paypal" type="radio" name="payment">
-                            </div>
-                          </label>
-                        </div>
-                        <div class="input-fields">
-                          <div class="column-1">
-                            <label for="cardholder">Name</label>
-                            <input type="text" id="cardholder" />
-                            <div class="small-inputs">
-                              <div>
-                                <label for="date">Valid date</label>
-                                <input type="text" id="date"/>
-                              </div>
-                              <div>
-                                <label for="verification">CVV / CVC *</label>
-                                <input type="password" id="verification"/>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="column-2">
-                            <label for="cardnumber">Card Number</label>
-                            <input type="password" id="cardnumber"/>
-                          </div>
-                        </div>
-                      </div>
-              </div>
+          <showpaymentstyle></showpaymentstyle>
+      
             </div>
           <!-- /* ============================================¤ Betalningsmetod slutar  ¤============================================ */
 
@@ -203,6 +117,7 @@
   <div class="clearfix"></div>
   </div>
   </div>
+
   </div>
  </footer>
 </body>
