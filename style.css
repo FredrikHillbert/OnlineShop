@@ -5,6 +5,7 @@ body{
     padding: 0px;
     font-family: poppins;
     background-color: #ffffff;
+    
 }
 * {
   box-sizing: border-box;
@@ -14,6 +15,12 @@ body{
 .topnav {
   overflow: hidden;
   padding: 2%;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+  margin: 2%;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+ outline: var(--outline-width) solid lime;
+ box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+
   
 }
 
@@ -1290,6 +1297,10 @@ input[type='password']:focus {
     flex: 20%;
     background-color: #ffffff;
     padding: 20px;
+    margin: 1%;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+outline: var(--outline-width) solid lime;
+box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
   }
   .side li {
     width: 100%;
@@ -1299,14 +1310,20 @@ input[type='password']:focus {
     background-color: #f0e8e859;
     text-align: center;
     font-weight: bold;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+
+outline: var(--outline-width) solid lime;
+box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
   }  
   
   /* Main column */
   .main1 {   
-    -ms-flex: 80%; /* IE10 */
-    flex: 80%;
+    -ms-flex: 70%; /* IE10 */
+    flex: 70%;
     background-color: white;
     padding: 20px;
+    margin: 0.5%;
+
   }
   
   /* Fake image, just for this example */
@@ -1322,7 +1339,7 @@ input[type='password']:focus {
   
   
   /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 1200px) {
     .row1 {   
       flex-direction: column;
     }
