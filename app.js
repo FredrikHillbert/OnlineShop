@@ -296,7 +296,7 @@ template:
 '</ul>'+
 '</div>'+
 '<div class="checkout">'+
-'<button type="button">Vidare till betalning</button>'+
+'<button @click="paymentpage" type="button">Vidare till betalning</button>'+
 '</div>'+
 '</section>'+
 '</div>'
@@ -312,6 +312,9 @@ methods: {
   },
   homepage: function(){
     this.$root.$refs.changePageMethod.changePage(1)
+  },
+  paymentpage: function(){
+    this.$root.$refs.changePageMethod.changePage(7)
   },
  
 
@@ -433,6 +436,14 @@ var changePageMethod = new Vue({
                   this.payment = false;
                   this.shoppingBag = true;
                   this.$root.$refs.showshoppingbag.getShoppingBag();
+                  break;  
+                  case 7:
+                  window.scrollTo(0, 0);
+                  this.homepage = false;
+                  this.clothpage = false;
+                  this.specific = false;
+                  this.payment = true;
+                  this.shoppingBag = true;
                   break;  
         default:
           break;
