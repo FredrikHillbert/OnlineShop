@@ -14,7 +14,7 @@
 <body >
 <div id ="wrapper">  
 <!-- /* ============================================¤ Meny  ¤============================================ */ -->
-<div class="topnav" id="myTopnav">
+<div class="topnav" id="myTopnav" v-show="Menu">
   <a @click="changePage(1)" class="active">Home</a>
   <div class="dropdown">
     <button style="cursor: pointer;" class="dropbtn">
@@ -70,7 +70,7 @@
 </div>
 <!-- /* ============================================¤ Specifik artikel slut  ¤============================================ */ -->
 
-    <div  class="wrap">
+    
       <div id="accordian">
         <div v-show="payment">
           <showpaymentstyle></showpaymentstyle>
@@ -89,9 +89,21 @@
 </div>  
 </div>  
 </div>    
-</div>     
+
 <!-- /* ============================================¤ Granskning av beställning slutar  ¤============================================ */    -->
+
+<!-- /* ============================================¤ Tack för din beställning  ¤============================================ */    -->
+
+
+  <div class="wrapper-1" v-show="txnForOrder">
+    <showthxfororder></showthxfororder>
+   </div>
+
+
+
 </div> 
+
+<!-- /* ============================================¤ Tack för din beställning slut ¤============================================ */    -->
 
 <!--------------footer ------------------------------------------>
 <footer>

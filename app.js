@@ -114,6 +114,28 @@ methods: {
 })
 //===================================================================¤¤ Component/tamplet Products in store ends here ¤¤===================================================================//
 
+//===================================================================¤¤ Component/tamplet thx for order ¤¤===================================================================//
+Vue.component('showthxfororder', {
+
+
+  
+  template: 
+  
+  '<div>'+
+  '<div class="wrapper-2">'+
+  '<h1>Thanks for your order</h1>'+
+  '<p>We have received your order and will be in contact shortly.</p>'+
+  '<a href="/"><button class="go-home">go home</button></a>'+
+  '</div>'+
+  '<div class="footer-like">'+
+  '<p>Problem? Contact us by email<a >Info@perwear.io</a></p>'+
+  '</div>'+
+  '</div>'
+  ,
+    
+    
+  })
+  //===================================================================¤¤ Component/tamplet thx for order ends ¤¤===================================================================//
 
 //===================================================================¤¤ Component/tamplet specific product and information ¤¤===================================================================//
 
@@ -330,7 +352,8 @@ methods: {
   paymentsuccess: function(){
     
     this.payment = false;
-    alert("Din beställning är lagd!") /// FIXA SIDA FÖR DETTA!
+    this.$root.$refs.changePageMethod.changePage(8)
+    
   },
   getShippingPrice: function(value)
   {
@@ -506,6 +529,8 @@ var changePageMethod = new Vue({
     specific:false,
     payment: false,
     shoppingBag: false,
+    txnForOrder: false,
+    Menu: true,
     numCartProduct: 0,
   },
   created(){
@@ -527,6 +552,7 @@ var changePageMethod = new Vue({
           this.specific = false;
           this.payment = false;
           this.shoppingBag = false;
+          this.txnForOrder = false;
           
            break;
         case 2:
@@ -535,6 +561,7 @@ var changePageMethod = new Vue({
           this.specific = false;
           this.payment = false;
           this.shoppingBag = false;
+          this.txnForOrder = false;
           var url = "men's clothing"
           this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
           break;
@@ -544,6 +571,7 @@ var changePageMethod = new Vue({
             this.specific = false;
             this.payment = false;
             this.shoppingBag = false;
+            this.txnForOrder = false;
             var url = "men's clothing"
             this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
             break;
@@ -553,6 +581,7 @@ var changePageMethod = new Vue({
               this.specific = false;
               this.payment = false;
               this.shoppingBag = false;
+              this.txnForOrder = false;
               var url = "women's clothing"
               this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
               break;
@@ -562,6 +591,7 @@ var changePageMethod = new Vue({
                 this.specific = true;
                 this.payment = false;
                 this.shoppingBag = false;
+                this.txnForOrder = false;
                 this.$root.$refs.showproduct.getProduct(items,id)
                 break;
                 case 6:
@@ -569,6 +599,7 @@ var changePageMethod = new Vue({
                   this.clothpage = false;
                   this.specific = false;
                   this.payment = false;
+                  this.txnForOrder = false;
                   this.shoppingBag = true;
                   this.$root.$refs.showshoppingbag.getShoppingBag();
                   break;  
@@ -578,8 +609,18 @@ var changePageMethod = new Vue({
                   this.specific = false;
                   this.payment = true;
                   this.shoppingBag = true;
+                  this.txnForOrder = false;
                   window.scrollTo(0,0);
                   break;  
+                  case 8:
+                    this.homepage = false;
+                    this.clothpage = false;
+                    this.specific = false;
+                    this.payment = false;
+                    this.shoppingBag = false;
+                    this.txnForOrder = true;
+                    this.Menu = false;
+                    break;  
         default:
           break;
       }

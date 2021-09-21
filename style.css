@@ -402,10 +402,14 @@ body{
 
   .footer {
     margin-top: 2%;
-    width: 100%;
+   
     position: relative;
     height: auto;
     background-color: #ffffffd8;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
+    outline: var(--outline-width) solid lime;
+    box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+  
   }
   .footer .col {
     width: 190px;
@@ -635,13 +639,7 @@ box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.055), 0 0.1em 1em rgba(0, 0, 0, 0.048);
 
 
 
-.wrap{
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  text-align: center;
 
-
-}
 .step{
   border-bottom: solid 2px rgb(185, 185, 185);
   margin: 2%;
@@ -1348,7 +1346,84 @@ box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
      
     } 
   }
+
+
+
+  .wrapper-1{
+    width:100%;
+    height:100vh;
+    display: flex;
+  flex-direction: column;
+
+  }
+  .wrapper-2{
+    padding :30px;
+    text-align:center;
+  }
+  h1{
+      
+    font-size:4em;
+    letter-spacing:3px;
+    color:#525458 ;
+    margin:0;
+    margin-bottom:20px;
+  }
+  .wrapper-2 p{
+    margin:0;
+    font-size:1.3em;
+    color:#aaa;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing:1px;
+  }
+  .go-home{
+    color:#fff;
+    background:#b4b6b9;
+    border:none;
+    padding:10px 50px;
+    margin:30px 0;
+    border-radius:30px;
+    text-transform:capitalize;
+    box-shadow: 0 10px 16px 1px rgb(92, 94, 97);
+  }
+  .footer-like{
+    margin-top: auto; 
+    background:#ffffff;
+    padding:6px;
+    text-align:center;
+  }
+  .footer-like p{
+    margin:0;
+    padding:4px;
+    color:#6b6b6b;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing:1px;
+  }
+  .footer-like p a{
+    text-decoration:none;
+    color:#5892FF;
+    font-weight:600;
+  }
   
+  @media (min-width:360px){
+    h1{
+      font-size:4.5em;
+    }
+    .go-home{
+      margin-bottom:20px;
+    }
+  }
+  
+  @media (min-width:600px){
+   
+    .wrapper-1{
+    height: initial;
+    max-width:620px;
+    margin:0 auto;
+    margin-top:50px;
+    box-shadow: 4px 8px 40px 8px rgba(88, 146, 255, 0.2);
+  }
+    
+  }
     
   
   
