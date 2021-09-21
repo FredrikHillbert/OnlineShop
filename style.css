@@ -1425,10 +1425,13 @@ box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
     
   }
 .addproduct{
+ 
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
   outline: var(--outline-width) solid lime;
   box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
   padding: 2%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
   /* Style inputs with type="text", select elements and textareas */
 .addproduct input[type=text], select, textarea {

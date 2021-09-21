@@ -28,7 +28,7 @@
     </div>
   </div>
  <div class="itemMeny" >
-    <a class="user"> <i class="far fa-user"></i></a>
+    <a @click="changePage(9)" class="user"> <i class="far fa-user"></i></a>
     <a @click="changePage(6)"><i class="fas fa-shopping-cart"> <span class="num-cart-product">{{numCartProduct}}</span></i></a>
   </div>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
@@ -98,35 +98,18 @@
   <div class="wrapper-1" v-show="txnForOrder">
     <showthxfororder></showthxfororder>
    </div>
+<!-- /* ============================================¤ Tack för din beställning slut ¤============================================ */    -->
 
+<!-- /* ============================================¤ Admin add product¤============================================ */    -->
 
+   <div v-show="admin">
+    <showaddnewproduct></showaddnewproduct>
+   </div>
+<!-- /* ============================================¤ Admin add product ends¤============================================ */    -->
 
 </div> 
 
-<!-- /* ============================================¤ Tack för din beställning slut ¤============================================ */    -->
-<div class="container addproduct">
-  <form action="action_page.php">
 
-    <label for="name">Product name</label>
-    <input type="text" id="name" name="name" placeholder="Product name">
-
-    <label for="price">Price</label>
-    <input type="text" id="Price" name="price" placeholder="Product price">
-
-    <label for="country">Category</label>
-    <select id="country" name="country">
-      <option value="men's clothing">Men's clothing</option>
-      <option value="women's clothing">Women's clothing</option>
-      <option value="jewelery">Jewelery</option>
-    </select>
-
-    <label for="subject">Product information</label>
-    <textarea id="subject" name="subject" placeholder="Info . . . " style="height:200px"></textarea>
-
-    <input type="submit" value="Add product">
-
-  </form>
-</div>
 
 <!--------------footer ------------------------------------------>
 <footer>

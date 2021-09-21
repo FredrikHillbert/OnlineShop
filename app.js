@@ -11,7 +11,10 @@ function myFunction() {
 
 
 //===================================================================### Vue ###===================================================================//
-currentShoppingBag = new Array();
+ currentShoppingBag = new Array();
+ newproductWomen= new Array();
+ newproductMan = new Array();
+ newproductjewelery = new Array();
 
 
 
@@ -58,6 +61,69 @@ methods: {
 
 })
 //===================================================================¤¤ Component/tamplet Homepage ends here ¤¤===================================================================//
+
+//===================================================================¤¤ Component/tamplet AddProduct starts here ¤¤===================================================================//
+
+Vue.component('showaddnewproduct', {
+
+  created(){
+    this.$root.$refs.showaddnewproduct = this;
+  },
+  updated(){
+    this.$root.$refs.showaddnewproduct = this;
+  },
+    
+  template: 
+  
+  '<div>'+
+  '<div class="container addproduct">'+
+  '<form action="action_page.php">'+
+  '<label for="name">Product name</label>'+
+  '<input type="text" id="name" name="name" placeholder="Product name">'+
+  '<label for="price">Price</label>'+
+  '<input type="text" id="Price" name="price" placeholder="Product price">'+
+  '<label for="country">Category</label>'+
+  '<select id="country" name="country">'+
+  '<option value="mens clothing">Men s clothing</option>'+
+  '<option value="womens clothing">Women s clothing</option>'+
+  '<option value="jewelery">Jewelery</option>'+
+  '</select>'+
+  '<label for="subject">Product information</label>'+
+  '<textarea id="subject" name="subject" placeholder="Info . . . " style="height:200px"></textarea> '+
+  '<input type="submit" value="Add product">'+
+  '</form>'+     
+  '</div>'+
+  '</div>',
+
+  methods: {
+
+    //------------------------------------Ny product array!
+    addproduct: function(){
+      newproductWomen; //------------------inmatning value = "mens clothing" (änvänd denna array)
+      newproductMan; //------------------inmatning value = "womens clothing" (änvänd denna array)
+      newproductjewelery;  //------------------inmatning value = "jewelery" (änvänd denna array)
+     var newproduct = [
+    {
+          "id": 5,//Automatiskt id som inte finns
+          "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
+          "price": 695,
+          "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
+          "category": "jewelery",
+          "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+          "rating": {
+              "rate": 0,
+              "count": 0}
+      }]
+
+    
+    }}
+
+    
+  
+  });
+
+
+//===================================================================¤¤ Component/tamplet AddProduct ends here ¤¤===================================================================//
 
 //===================================================================¤¤ Component/tamplet Products in store ¤¤===================================================================//
 
@@ -531,6 +597,7 @@ var changePageMethod = new Vue({
     shoppingBag: false,
     txnForOrder: false,
     Menu: true,
+    admin: false,
     numCartProduct: 0,
   },
   created(){
@@ -553,6 +620,7 @@ var changePageMethod = new Vue({
           this.payment = false;
           this.shoppingBag = false;
           this.txnForOrder = false;
+          this.admin = false;
           
            break;
         case 2:
@@ -562,6 +630,7 @@ var changePageMethod = new Vue({
           this.payment = false;
           this.shoppingBag = false;
           this.txnForOrder = false;
+          this.admin = false;
           var url = "men's clothing"
           this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
           break;
@@ -572,6 +641,7 @@ var changePageMethod = new Vue({
             this.payment = false;
             this.shoppingBag = false;
             this.txnForOrder = false;
+            this.admin = false;
             var url = "men's clothing"
             this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
             break;
@@ -582,6 +652,7 @@ var changePageMethod = new Vue({
               this.payment = false;
               this.shoppingBag = false;
               this.txnForOrder = false;
+              this.admin = false;
               var url = "women's clothing"
               this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
               break;
@@ -592,6 +663,7 @@ var changePageMethod = new Vue({
                 this.payment = false;
                 this.shoppingBag = false;
                 this.txnForOrder = false;
+                this.admin = false;
                 this.$root.$refs.showproduct.getProduct(items,id)
                 break;
                 case 6:
@@ -601,6 +673,7 @@ var changePageMethod = new Vue({
                   this.payment = false;
                   this.txnForOrder = false;
                   this.shoppingBag = true;
+                  this.admin = false;
                   this.$root.$refs.showshoppingbag.getShoppingBag();
                   break;  
                   case 7:
@@ -610,6 +683,7 @@ var changePageMethod = new Vue({
                   this.payment = true;
                   this.shoppingBag = true;
                   this.txnForOrder = false;
+                  this.admin = false;
                   window.scrollTo(0,0);
                   break;  
                   case 8:
@@ -620,7 +694,19 @@ var changePageMethod = new Vue({
                     this.shoppingBag = false;
                     this.txnForOrder = true;
                     this.Menu = false;
+                    this.admin = false;
                     break;  
+                    case 9:
+                      this.homepage = false;
+                      this.clothpage = false;
+                      this.specific = false;
+                      this.payment = false;
+                      this.shoppingBag = false;
+                      this.txnForOrder = false;
+                      this.Menu = true;
+                      this.admin = true;
+                      break;  
+                   
         default:
           break;
       }
