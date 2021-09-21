@@ -224,13 +224,12 @@ body{
 
 .shopping-item-image{
   
-  max-width: 100%;
+  width: 100%;
   vertical-align: middle;
   border-radius: 4px;
   height: 500px;
-  padding: 5%;
-  
-
+  padding: 2%;
+  object-fit: scale-down;
 }
 
 .shopping-item-card:hover{
