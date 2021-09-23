@@ -12,9 +12,9 @@ function myFunction() {
 
 //===================================================================### Vue ###===================================================================//
  currentShoppingBag = new Array();
- newproductWomen= new Array();
- newproductMan = new Array();
- newproductjewelery = new Array();
+ newproductWomen= [];
+ newproductMan = [];
+ newproductjewelery = [];
 
 
 
@@ -72,25 +72,36 @@ Vue.component('showaddnewproduct', {
   updated(){
     this.$root.$refs.showaddnewproduct = this;
   },
+
+  data: function() {
+    return {
+      id: 100,
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+    }
+
+  },
     
   template: 
   
   '<div>'+
   '<div class="container addproduct">'+
-  '<form action="action_page.php">'+
+  '<form>'+
   '<label for="name">Product name</label>'+
-  '<input type="text" id="name" name="name" placeholder="Product name">'+
+  '<input type="text" id="name" name="name" placeholder="Product name" v-model="title">'+
   '<label for="price">Price</label>'+
-  '<input type="text" id="Price" name="price" placeholder="Product price">'+
+  '<input type="text" id="Price" name="price" placeholder="Product price" v-model="price">'+
   '<label for="country">Category</label>'+
-  '<select id="country" name="country">'+
-  '<option value="mens clothing">Men s clothing</option>'+
-  '<option value="womens clothing">Women s clothing</option>'+
-  '<option value="jewelery">Jewelery</option>'+
+  '<select v-model="category"> '+
+  '<option value="Mens clothing">Men&apos;s clothing</option>'+
+  '<option value="Womens clothing">Women s clothing</option> '+
+  '<option value="Jewelery">Jewelery</option>'+
   '</select>'+
   '<label for="subject">Product information</label>'+
-  '<textarea id="subject" name="subject" placeholder="Info . . . " style="height:200px"></textarea> '+
-  '<input type="submit" value="Add product">'+
+  '<textarea id="subject" name="subject" placeholder="Info . . . " style="height:200px" v-model="description"></textarea>'+
+  '<a @click="addproduct()">Add product </a>'+
   '</form>'+     
   '</div>'+
   '</div>',
@@ -99,23 +110,31 @@ Vue.component('showaddnewproduct', {
 
     //------------------------------------Ny product array!
     addproduct: function(){
-      newproductWomen; //------------------inmatning value = "mens clothing" (änvänd denna array)
-      newproductMan; //------------------inmatning value = "womens clothing" (änvänd denna array)
-      newproductjewelery;  //------------------inmatning value = "jewelery" (änvänd denna array)
+      
      var newproduct = [
     {
-          "id": 5,//Automatiskt id som inte finns
-          "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
-          "price": 695,
-          "description": "From our Legends Collection, the Naga was inspired by the mythical water dragon that protects the ocean's pearl. Wear facing inward to be bestowed with love and abundance, or outward for protection.",
-          "category": "jewelery",
-          "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+          "id": this.id,//Automatiskt id som inte finns
+          "title": this.title,
+          "price": parseInt(this.price),
+          "description": this.description,
+          "category": this.category,
+          "image": "https://picsum.photos/200/300",
           "rating": {
               "rate": 0,
               "count": 0}
       }]
 
-    
+      if(this.category === "Mens clothing"){
+        newproductMan.push(newproduct);
+        console.log(newproduct);
+
+      }
+      else if(this.category === "Womens clothing"){
+        newproductWomen.push(newproduct);
+      }
+      else if(this.category === "Jewelery"){
+        newproductjewelery.push(newproduct);
+      }
     }}
 
     
@@ -160,7 +179,7 @@ template:
 ,
 
 methods: {
-  getItems: function(url){
+  getItems: function(url, name){
     axios.get(url)
     .then(response => {
 
@@ -170,21 +189,28 @@ methods: {
         this.shopitems.push(response.data[index]);
         
       }
+      if(name === "men's clothing" ){ this.addLocalClothing(newproductMan)}
+      else if(name ==="women's clothing"){this.addLocalClothing(newproductWomen)}
+      else if(name === "jewelery"){this.addLocalClothing(newproductjewelery)}
     })
+
   },
   showProduct: function(items,id){
     
     this.$root.$refs.changePageMethod.changePage(5,items,id);
   }, 
+  addLocalClothing: function(array){
+  
+    for (let index = 0; index < array.length; index++) {
+        this.shopitems.splice.apply(this.shopitems, [index, 0].concat(array[index]))
+    }
+  }
 }
 })
 //===================================================================¤¤ Component/tamplet Products in store ends here ¤¤===================================================================//
 
 //===================================================================¤¤ Component/tamplet thx for order ¤¤===================================================================//
 Vue.component('showthxfororder', {
-
-
-  
   template: 
   
   '<div>'+
@@ -631,8 +657,8 @@ var changePageMethod = new Vue({
           this.shoppingBag = false;
           this.txnForOrder = false;
           this.admin = false;
-          var url = "men's clothing"
-          this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`)
+          var url = "jewelery"
+          this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/jewelery`, url)
           break;
           case 3:
             this.homepage = false;
@@ -643,7 +669,7 @@ var changePageMethod = new Vue({
             this.txnForOrder = false;
             this.admin = false;
             var url = "men's clothing"
-            this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
+            this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`, url)
             break;
             case 4:
               this.homepage = false;
@@ -654,7 +680,7 @@ var changePageMethod = new Vue({
               this.txnForOrder = false;
               this.admin = false;
               var url = "women's clothing"
-              this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`)
+              this.$root.$refs.showitems.getItems(`https://fakestoreapi.com/products/category/${url}`,url)
               break;
               case 5:
                 this.homepage = false;
