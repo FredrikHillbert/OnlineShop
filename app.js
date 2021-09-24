@@ -241,7 +241,7 @@ Vue.component('showthxfororder', {
   '<div class="wrapper-2">'+
   '<h1>Thanks for your order</h1>'+
   '<p>We have received your order and will be in contact shortly.</p>'+
-  '<a href="/"><button class="go-home">go home</button></a>'+
+  '<a href="https://fredrikhillbert.github.io/OnlineShop/"><button class="go-home">go home</button></a>'+
   '</div>'+
   '<div class="footer-like">'+
   '<p>Problem? Contact us by email<a> Info@perwear.io</a></p>'+
