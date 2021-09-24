@@ -15,8 +15,23 @@ function myFunction() {
  newproductWomen= [];
  newproductMan = [];
  newproductjewelery = [];
+ currentQuantitys = [];
+ currentId = 21;
+      
+window.onload = function() {
 
-
+  for (let index = 0; index <= 20; index++) {
+    var obj = 
+      {
+            "id": index,
+            "quantity": 10,
+        }
+      
+    currentQuantitys.push(obj)
+    
+  }
+  console.log(currentQuantitys)
+}
 
 
 //===================================================================¤¤ Component/tamplet Homepage ¤¤===================================================================//
@@ -46,15 +61,13 @@ methods: {
     .then(response => {
       for (let index = 0; index < response.data.length; index++) {
         this.shop.push(response.data[index])
-      
       }
-     
-      
     })
   },
   addProductToShoppingBag: function(items, id){
     
     currentShoppingBag.push(items[id-1])
+    currentQuantitys[id].quantity -= 1;
     this.$root.$refs.changePageMethod.updateCart();
   },
 }
@@ -75,11 +88,12 @@ Vue.component('showaddnewproduct', {
 
   data: function() {
     return {
-      id: 100,
+      id: 0,
       title: "",
       price: 0,
       description: "",
       category: "",
+      quantity: 1,
     }
 
   },
@@ -93,6 +107,8 @@ Vue.component('showaddnewproduct', {
   '<input type="text" id="name" name="name" placeholder="Product name" v-model="title">'+
   '<label for="price">Price</label>'+
   '<input type="text" id="Price" name="price" placeholder="Product price" v-model="price">'+
+  '<label for="quantity">Add quantity</label>'+
+  '<input type="text" id="quantity" name="quantity" placeholder="quantity" v-model="quantity">'+
   '<label for="country">Category</label>'+
   '<select v-model="category"> '+
   '<option value="Mens clothing">Men&apos;s clothing</option>'+
@@ -113,7 +129,7 @@ Vue.component('showaddnewproduct', {
       
      var newproduct = [
     {
-          "id": this.id,//Automatiskt id som inte finns
+          "id": currentId,//Automatiskt id som inte finns
           "title": this.title,
           "price": parseInt(this.price),
           "description": this.description,
@@ -124,10 +140,10 @@ Vue.component('showaddnewproduct', {
               "count": 0}
       }]
 
+    
+
       if(this.category === "Mens clothing"){
         newproductMan.push(newproduct);
-        console.log(newproduct);
-
       }
       else if(this.category === "Womens clothing"){
         newproductWomen.push(newproduct);
@@ -135,6 +151,14 @@ Vue.component('showaddnewproduct', {
       else if(this.category === "Jewelery"){
         newproductjewelery.push(newproduct);
       }
+      var obj = 
+      {
+            "id": currentId,
+            "quantity": parseInt(this.quantity),
+        }
+      currentQuantitys.push(obj)
+      currentId ++;
+
     }}
 
     
@@ -220,7 +244,7 @@ Vue.component('showthxfororder', {
   '<a href="/"><button class="go-home">go home</button></a>'+
   '</div>'+
   '<div class="footer-like">'+
-  '<p>Problem? Contact us by email<a >Info@perwear.io</a></p>'+
+  '<p>Problem? Contact us by email<a> Info@perwear.io</a></p>'+
   '</div>'+
   '</div>'
   ,
@@ -245,6 +269,7 @@ Vue.component('showproduct', {
     return {
       productitems:[],
     
+      quantity: 0,
     }
   },
   
@@ -255,6 +280,7 @@ Vue.component('showproduct', {
   '<h2>{{ item.title }}</h2> '+
   '<h5>{{ item.description }}</h5>'+
   ' <div class="fakeimg"><img :src = "item.image" ></div>'+
+  '<p> items left:  {{ quantity }} </p>'+
   '<div class="recipes_header_summary">'+
   '<div class="flex-horiz-container">'+
   '<div class="selector">'+
@@ -268,7 +294,7 @@ Vue.component('showproduct', {
   ' <option value="4">XL</option>'+
    '</select>'+     
   ' </div>'+
- '<p><button @click="addProductToShoppingBag(productitems, item.id)">Add to cart</button></p>'+
+ '<p><button v-if="quantity > 0" @click="addProductToShoppingBag(productitems, item.id), quantity -= 1">Add to cart</button></p>'+
 '</div>'+
 '</div>'+
 '</div>'+
@@ -276,23 +302,28 @@ Vue.component('showproduct', {
 
   methods: {
     getProduct: function(items,id){
-      
+   
       this.productitems=[];
       for (let index = 0; index < items.length; index++) {
 
-        if(id === items[index].id)
-        this.productitems.push(items[index])
-      
+        if(id === items[index].id){
+          this.productitems.push(items[index])
+          for (let index = 0; index < currentQuantitys.length; index++) {
+            if(currentQuantitys[index].id === id){
+              this.quantity = currentQuantitys[index].quantity
+            }
+          }
+        }
       }
       },
-
       addProductToShoppingBag: function(items, id){
         currentShoppingBag.push(items[0])
         this.$root.$refs.changePageMethod.updateCart();
+        currentQuantitys[id].quantity = this.quantity-1
+
       }
     },
-   
-    
+
    
   });
 //=======================================================¤¤ Component/tamplet specific product and information ends here ¤¤===================================================================//
@@ -338,17 +369,14 @@ Vue.component('showshoppingbag', {
           for (var i = 0; i < this.shoppingBag.length; i++) {
             count += parseInt(this.shoppingBag[i].quantity) || 0;
           }
-    
           return count;
         },
         subTotal: function() {
           var subTotal = 0;
-        this.shippingCost
-         
+        this.shippingCost;
           for (var i = 0; i < this.shoppingBag.length; i++) {
             subTotal +=  this.shoppingBag[i].price;
           }
-    
           return subTotal = subTotal+parseInt(this.shippingCost) || 0;
         },
         discountPrice: function() {
@@ -388,7 +416,7 @@ template:
 '<input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" />'+
 '</div>'+
 '<div class="removeItem">'+
-'<svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>'+
+'<svg @click="removeItem(index, product.id)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>'+
 '</div>'+
 '</div>'+
 '</li>'+
@@ -406,10 +434,10 @@ template:
 '</div>'+
 '<div class="summaryCheckOut">'+
 '<ul>'+
-'<li>Pris: <span>{{ subTotal | currencyFormatted }}</span></li>'+
+'<li>Price: <span>{{ subTotal | currencyFormatted }}</span></li>'+
 '<li v-if="discount > 0">Discount: <span>{{ discountPrice | currencyFormatted }}</span></li>'+
 '<li v-if="payment">Shipping Cost: <span> {{ shippingCost | currencyFormatted }} </span> </li>'+
-'<li>Momskostnad: <span>{{ tax*totalPrice  | currencyFormatted }}</span></li>'+
+'<li>Tax: <span>{{ tax*totalPrice  | currencyFormatted }}</span></li>'+
 '<li class="total">Total: <span>{{ totalPrice | currencyFormatted }}</span></li>'+
 '</ul>'+
 '</div>'+
@@ -428,7 +456,6 @@ methods: {
   getShoppingBag: function(){
     this.shoppingBag= [];
     for (let index = 0; index < currentShoppingBag.length; index++) {
-     //Inte lägga till dubbel
       this.shoppingBag.push(currentShoppingBag[index])
     }
   },
@@ -452,35 +479,13 @@ methods: {
     this.shippingCost = value;
 
   },
-  
-
-updateQuantity: function(index, event) {
-        var product = this.shoppingBag[index];
-        var value = event.target.value;
-        var valueInt = parseInt(value);
-  
-        
-        if (value === "") {
-          product.quantity = value;
-        } else if (valueInt > 0 && valueInt < 100) {
-          product.quantity = valueInt;
-        }
-  
-        this.$set(this.shoppingBag, index, product);
-      },
-      checkQuantity: function(index, event) {
-        // Update quantity to 1 if it is empty
-        if (event.target.value === "") {
-          var product = this.shoppingBag[index];
-          product.quantity = 1;
-          this.$set(this.shoppingBag, index, product);
-        }
-      },
-      removeItem: function(index) {
+  removeItem: function(index, id) {
       
         this.shoppingBag.splice(index, 1);
         currentShoppingBag = this.shoppingBag;
+        currentQuantitys[id].quantity  += 1  
         this.$root.$refs.changePageMethod.updateCart();
+        
       },
       checkPromoCode: function() {
         for (var i = 0; i < this.promotions.length; i++) {
@@ -602,9 +607,7 @@ methods:{
   shippingFunction: function(event){
     var data = event.target.value;
     this.$root.$refs.showshoppingbag.getShippingPrice(data);
-
      }
-
 }
 
 })
@@ -636,7 +639,6 @@ var changePageMethod = new Vue({
   methods:{
     changePage: function(text,items,id){
       
-  
       switch (text) {
         case 1:
           
@@ -647,8 +649,8 @@ var changePageMethod = new Vue({
           this.shoppingBag = false;
           this.txnForOrder = false;
           this.admin = false;
-          
            break;
+
         case 2:
           this.homepage = false;
           this.clothpage = true;
@@ -736,15 +738,9 @@ var changePageMethod = new Vue({
         default:
           break;
       }
-
-
     },
      updateCart: function(){
-     
       this.numCartProduct = currentShoppingBag.length;
-      
-      
-      
       }
   }
 })
